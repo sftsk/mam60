@@ -1,0 +1,267 @@
+{
+  "schemaVersion": 1,
+  "id": "geburtstagsquiz-2026",
+  "title": "Die große Geburtstagsrunde",
+  "subtitle": "Sechs Themen, dreißig Fragen und jede Menge Grund zum Feiern!",
+  "locale": "de",
+  "topics": [
+    {
+      "id": "food-drinks",
+      "title": "Food & Drinks",
+      "questions": [
+        {
+          "id": "food-100",
+          "points": 100,
+          "prompt": "Welche Frucht ist die Hauptzutat einer klassischen Guacamole?",
+          "answer": "Die Avocado."
+        },
+        {
+          "id": "food-200",
+          "points": 200,
+          "prompt": "Welches Gas sorgt für die Bläschen in Mineralwasser?",
+          "answer": "Kohlenstoffdioxid (CO₂)."
+        },
+        {
+          "id": "food-300",
+          "points": 300,
+          "prompt": "Welches Gewürz ist hier stilisiert abgebildet?",
+          "answer": "Sternanis.",
+          "image": "images/questions/sternanis.svg",
+          "imageAlt": "Ein braunes, sternförmiges Gewürz mit acht Spitzen."
+        },
+        {
+          "id": "food-400",
+          "points": 400,
+          "prompt": "Wie heißt die Reaktion, die beim scharfen Anbraten für Röstaromen und Bräunung sorgt?",
+          "answer": "Die Maillard-Reaktion."
+        },
+        {
+          "id": "food-500",
+          "points": 500,
+          "prompt": "Aus welchem Getreide wird traditioneller italienischer Risotto hauptsächlich zubereitet?",
+          "answer": "Aus speziellen Rundkorn-Reissorten, zum Beispiel Arborio oder Carnaroli."
+        }
+      ]
+    },
+    {
+      "id": "literature",
+      "title": "Literature",
+      "questions": [
+        {
+          "id": "literature-100",
+          "points": 100,
+          "prompt": "Wer schrieb die Harry-Potter-Romane?",
+          "answer": "J. K. Rowling."
+        },
+        {
+          "id": "literature-200",
+          "points": 200,
+          "prompt": "Von welchem deutschen Dichter stammt das Drama „Faust“?",
+          "answer": "Johann Wolfgang von Goethe."
+        },
+        {
+          "id": "literature-300",
+          "points": 300,
+          "prompt": "Wer ist der Autor von „Don Quijote“?",
+          "answer": "Miguel de Cervantes."
+        },
+        {
+          "id": "literature-400",
+          "points": 400,
+          "prompt": "Wie heißt die Hauptfigur, die in Kafkas „Die Verwandlung“ als ungeheures Ungeziefer erwacht?",
+          "answer": "Gregor Samsa."
+        },
+        {
+          "id": "literature-500",
+          "points": 500,
+          "prompt": "Welches mittelhochdeutsche Heldenepos erzählt unter anderem von Siegfried und Kriemhild?",
+          "answer": "Das Nibelungenlied."
+        }
+      ]
+    },
+    {
+      "id": "history",
+      "title": "History",
+      "questions": [
+        {
+          "id": "history-100",
+          "points": 100,
+          "prompt": "In welchem Jahr fiel die Berliner Mauer?",
+          "answer": "1989."
+        },
+        {
+          "id": "history-200",
+          "points": 200,
+          "prompt": "Wer wurde 1871 der erste Reichskanzler des Deutschen Kaiserreichs?",
+          "answer": "Otto von Bismarck."
+        },
+        {
+          "id": "history-300",
+          "points": 300,
+          "prompt": "Welches Ereignis begann 1789 mit dem Sturm auf die Bastille?",
+          "answer": "Die Französische Revolution.",
+          "image": "images/questions/bastille.svg",
+          "imageAlt": "Eine stilisierte Festung mit französischen Trikolore-Bannern und der Jahreszahl 1789."
+        },
+        {
+          "id": "history-400",
+          "points": 400,
+          "prompt": "Welcher Friedensschluss beendete 1648 den Dreißigjährigen Krieg?",
+          "answer": "Der Westfälische Friede."
+        },
+        {
+          "id": "history-500",
+          "points": 500,
+          "prompt": "Wie heißt die Urkunde, die der englische König Johann 1215 in Runnymede besiegelte?",
+          "answer": "Magna Carta."
+        }
+      ]
+    },
+    {
+      "id": "pokemon",
+      "title": "Pokémon",
+      "questions": [
+        {
+          "id": "pokemon-100",
+          "points": 100,
+          "prompt": "Welchem Typ gehört Pikachu an?",
+          "answer": "Dem Typ Elektro."
+        },
+        {
+          "id": "pokemon-200",
+          "points": 200,
+          "prompt": "Welche drei Starter-Pokémon stehen in der Kanto-Region zur Wahl?",
+          "answer": "Bisasam, Glumanda und Schiggy."
+        },
+        {
+          "id": "pokemon-300",
+          "points": 300,
+          "prompt": "Zu welchem Pokémon entwickelt sich Karpador?",
+          "answer": "Zu Garados."
+        },
+        {
+          "id": "pokemon-400",
+          "points": 400,
+          "prompt": "Wie viele Pokémon-Typen gibt es seit der Einführung des Feen-Typs?",
+          "answer": "18 Typen."
+        },
+        {
+          "id": "pokemon-500",
+          "points": 500,
+          "prompt": "Welches Pokémon trägt im nationalen Pokédex die Nummer 150?",
+          "answer": "Mewtu."
+        }
+      ]
+    },
+    {
+      "id": "sports",
+      "title": "Sports",
+      "questions": [
+        {
+          "id": "sports-100",
+          "points": 100,
+          "prompt": "Wie viele Spielerinnen oder Spieler einer Fußballmannschaft stehen regulär gleichzeitig auf dem Feld?",
+          "answer": "Elf."
+        },
+        {
+          "id": "sports-200",
+          "points": 200,
+          "prompt": "In welcher Sportart bedeutet ein „Birdie“, ein Loch mit einem Schlag unter Par zu spielen?",
+          "answer": "Golf.",
+          "image": "images/questions/golf.svg",
+          "imageAlt": "Ein grünes Spielfeld mit Loch, Fahne und einem kleinen weißen Ball."
+        },
+        {
+          "id": "sports-300",
+          "points": 300,
+          "prompt": "Wie lang ist die offizielle Marathondistanz?",
+          "answer": "42,195 Kilometer."
+        },
+        {
+          "id": "sports-400",
+          "points": 400,
+          "prompt": "Aus wie vielen Disziplinen besteht ein Zehnkampf?",
+          "answer": "Aus zehn Disziplinen."
+        },
+        {
+          "id": "sports-500",
+          "points": 500,
+          "prompt": "In welcher Leichtathletik-Disziplin wird die Technik „Fosbury-Flop“ eingesetzt?",
+          "answer": "Im Hochsprung."
+        }
+      ]
+    },
+    {
+      "id": "technology",
+      "title": "Technology",
+      "questions": [
+        {
+          "id": "technology-100",
+          "points": 100,
+          "prompt": "Wofür steht die Abkürzung CPU?",
+          "answer": "Central Processing Unit, auf Deutsch zentrale Verarbeitungseinheit."
+        },
+        {
+          "id": "technology-200",
+          "points": 200,
+          "prompt": "Welche Dezimalzahl stellt die abgebildete Binärzahl dar?",
+          "answer": "Die Dezimalzahl 10.",
+          "image": "images/questions/binary.svg",
+          "imageAlt": "Die vier Binärziffern eins, null, eins, null."
+        },
+        {
+          "id": "technology-300",
+          "points": 300,
+          "prompt": "Wofür steht die Abkürzung HTML?",
+          "answer": "HyperText Markup Language."
+        },
+        {
+          "id": "technology-400",
+          "points": 400,
+          "prompt": "Welche zwei Schlüsselarten werden bei asymmetrischer Verschlüsselung verwendet?",
+          "answer": "Ein öffentlicher und ein privater Schlüssel."
+        },
+        {
+          "id": "technology-500",
+          "points": 500,
+          "prompt": "Welcher bekannte Algorithmus berechnet kürzeste Wege in einem Graphen mit nicht-negativen Kantengewichten?",
+          "answer": "Der Dijkstra-Algorithmus."
+        }
+      ]
+    }
+  ],
+  "prizes": [
+    {
+      "id": "prize-sweet",
+      "requiredPoints": 1500,
+      "title": "Süße Belohnung",
+      "description": "Ein Lieblingssnack für die nächste Pause.",
+      "image": "images/prizes/sweet.svg",
+      "imageAlt": "Eine bunte Geburtstagstorte mit Kerze."
+    },
+    {
+      "id": "prize-drink",
+      "requiredPoints": 3500,
+      "title": "Getränk nach Wahl",
+      "description": "Ein Wunschgetränk geht aufs Haus.",
+      "image": "images/prizes/drink.svg",
+      "imageAlt": "Ein festliches Getränk mit Strohhalm und Orangenscheibe."
+    },
+    {
+      "id": "prize-surprise",
+      "requiredPoints": 6000,
+      "title": "Kleine Überraschung",
+      "description": "Ein geheimnisvolles Geschenk wartet.",
+      "image": "images/prizes/surprise.svg",
+      "imageAlt": "Ein violettes Geschenk mit gelber Schleife."
+    },
+    {
+      "id": "prize-main",
+      "requiredPoints": 8000,
+      "title": "Geburtstags-Hauptpreis",
+      "description": "Das große Finale für echte Quiz-Champions.",
+      "image": "images/prizes/main.svg",
+      "imageAlt": "Ein goldener Pokal mit Konfetti."
+    }
+  ]
+}
