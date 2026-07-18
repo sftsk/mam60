@@ -5,8 +5,11 @@ import {
   createProgress,
   normalizeProgress,
   score,
+  withJokerUse,
+  withRevealedPrize,
   withDisplayedScore,
-  withQuestionResult
+  withQuestionResult,
+  withTimerOverride
 } from './game';
 import type { QuizConfig } from './types';
 
@@ -15,13 +18,17 @@ const config: QuizConfig = {
   id: 'test-quiz',
   title: 'Test',
   locale: 'de',
+  settings: {
+    defaultTimerSeconds: 60,
+    jokerUses: { callFriend: 3, threeOptions: 3, askAudience: 3 }
+  },
   topics: [
     {
       id: 'topic',
       title: 'Thema',
       questions: [
-        { id: 'q-100', points: 100, prompt: 'Frage?', answer: 'Antwort' },
-        { id: 'q-200', points: 200, prompt: 'Frage?', answer: 'Antwort' }
+        { id: 'q-100', points: 100, prompt: 'Frage?', answer: 'Antwort', jokerOptions: ['A', 'B', 'C'] },
+        { id: 'q-200', points: 200, prompt: 'Frage?', answer: 'Antwort', jokerOptions: ['A', 'B', 'C'] }
       ]
     }
   ],
@@ -51,5 +58,17 @@ describe('game state', () => {
   it('normalizes invalid or foreign stored data to a fresh game', () => {
     expect(normalizeProgress({ version: 1, quizId: 'other' }, config.id).quizId).toBe(config.id);
     expect(normalizeProgress(null, config.id).questionResults).toEqual({});
+  });
+
+  it('persists joker use, manual prize reveals, and bounded timer overrides', () => {
+    let progress = createProgress(config.id);
+    progress = withJokerUse(progress, 'askAudience');
+    progress = withRevealedPrize(progress, 'prize-1');
+    progress = withTimerOverride(progress, 1);
+
+    expect(progress.jokerUses.askAudience).toBe(1);
+    expect(progress.revealedPrizeIds).toEqual(['prize-1']);
+    expect(progress.timerSecondsOverride).toBe(5);
+    expect(normalizeProgress(progress, config.id)).toMatchObject(progress);
   });
 });

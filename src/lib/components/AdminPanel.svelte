@@ -6,12 +6,16 @@
   export let progress: QuizProgress;
   export let currentScore: number;
   export let persistenceAvailable: boolean;
+  export let timerSeconds: number;
   export let onScoreChange: (score: number) => void;
+  export let onTimerChange: (seconds: number) => void;
   export let onResultChange: (questionId: string, result: QuestionResult) => void;
   export let onReset: () => void;
 
   let scoreInput = currentScore;
+  let timerInput = timerSeconds;
   $: scoreInput = currentScore;
+  $: timerInput = timerSeconds;
 
   function changeResult(questionId: string, event: Event) {
     onResultChange(questionId, (event.currentTarget as HTMLSelectElement).value as QuestionResult);
@@ -31,6 +35,20 @@
       <input id="admin-score" type="number" min="0" step="1" bind:value={scoreInput} />
       <button type="submit">Übernehmen</button>
     </form>
+
+    <form class="score-editor" on:submit|preventDefault={() => onTimerChange(timerInput)}>
+      <label for="admin-timer">Zeit pro Frage</label>
+      <input id="admin-timer" type="number" min="5" max="600" step="1" bind:value={timerInput} />
+      <span class="input-unit">Sekunden</span>
+      <button type="submit">Übernehmen</button>
+    </form>
+
+    <div class="admin-joker-summary">
+      <strong>Joker-Verbrauch</strong>
+      <span>Telefon: {progress.jokerUses.callFriend}/{config.settings.jokerUses.callFriend}</span>
+      <span>3 Antworten: {progress.jokerUses.threeOptions}/{config.settings.jokerUses.threeOptions}</span>
+      <span>Publikum: {progress.jokerUses.askAudience}/{config.settings.jokerUses.askAudience}</span>
+    </div>
 
     <div class="question-editor">
       {#each config.topics as topic (topic.id)}

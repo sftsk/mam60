@@ -1,4 +1,4 @@
-import type { QuestionResult, QuizConfig, QuizProgress } from './types';
+import type { JokerType, QuestionResult, QuizConfig, QuizProgress } from './types';
 
 export function createProgress(quizId: string): QuizProgress {
   return {
@@ -6,6 +6,8 @@ export function createProgress(quizId: string): QuizProgress {
     quizId,
     questionResults: {},
     scoreAdjustment: 0,
+    jokerUses: { callFriend: 0, threeOptions: 0, askAudience: 0 },
+    revealedPrizeIds: [],
     updatedAt: new Date().toISOString()
   };
 }
@@ -32,8 +34,27 @@ export function normalizeProgress(value: unknown, quizId: string): QuizProgress 
       typeof candidate.scoreAdjustment === 'number' && Number.isInteger(candidate.scoreAdjustment)
         ? candidate.scoreAdjustment
         : 0,
+    jokerUses: {
+      callFriend: normalizeUseCount(candidate.jokerUses?.callFriend),
+      threeOptions: normalizeUseCount(candidate.jokerUses?.threeOptions),
+      askAudience: normalizeUseCount(candidate.jokerUses?.askAudience)
+    },
+    revealedPrizeIds: Array.isArray(candidate.revealedPrizeIds)
+      ? [...new Set(candidate.revealedPrizeIds.filter((id): id is string => typeof id === 'string'))]
+      : [],
+    timerSecondsOverride:
+      typeof candidate.timerSecondsOverride === 'number' &&
+      Number.isInteger(candidate.timerSecondsOverride) &&
+      candidate.timerSecondsOverride >= 5 &&
+      candidate.timerSecondsOverride <= 600
+        ? candidate.timerSecondsOverride
+        : undefined,
     updatedAt: typeof candidate.updatedAt === 'string' ? candidate.updatedAt : new Date().toISOString()
   };
+}
+
+function normalizeUseCount(value: unknown): number {
+  return typeof value === 'number' && Number.isInteger(value) && value >= 0 ? value : 0;
 }
 
 export function questionResult(progress: QuizProgress, questionId: string): QuestionResult {
@@ -89,6 +110,32 @@ export function withDisplayedScore(
   return {
     ...progress,
     scoreAdjustment: Math.max(0, Math.round(displayedScore)) - baseScore(config, progress),
+    updatedAt: new Date().toISOString()
+  };
+}
+
+export function withJokerUse(progress: QuizProgress, joker: JokerType): QuizProgress {
+  return {
+    ...progress,
+    jokerUses: { ...progress.jokerUses, [joker]: progress.jokerUses[joker] + 1 },
+    updatedAt: new Date().toISOString()
+  };
+}
+
+export function withRevealedPrize(progress: QuizProgress, prizeId: string): QuizProgress {
+  return {
+    ...progress,
+    revealedPrizeIds: progress.revealedPrizeIds.includes(prizeId)
+      ? progress.revealedPrizeIds
+      : [...progress.revealedPrizeIds, prizeId],
+    updatedAt: new Date().toISOString()
+  };
+}
+
+export function withTimerOverride(progress: QuizProgress, seconds: number): QuizProgress {
+  return {
+    ...progress,
+    timerSecondsOverride: Math.min(600, Math.max(5, Math.round(seconds))),
     updatedAt: new Date().toISOString()
   };
 }

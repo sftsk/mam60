@@ -6,11 +6,15 @@ const valid = {
   id: 'quiz',
   title: 'Quiz',
   locale: 'de',
+  settings: {
+    defaultTimerSeconds: 60,
+    jokerUses: { callFriend: 3, threeOptions: 3, askAudience: 3 }
+  },
   topics: [
     {
       id: 'topic',
       title: 'Thema',
-      questions: [{ id: 'q1', points: 100, prompt: 'Frage?', answer: 'Antwort' }]
+      questions: [{ id: 'q1', points: 100, prompt: 'Frage?', answer: 'Antwort', jokerOptions: ['A', 'B', 'C'] }]
     }
   ],
   prizes: [{ id: 'p1', requiredPoints: 100, title: 'Preis' }]
@@ -20,6 +24,8 @@ describe('quiz config', () => {
   it('parses a valid runtime configuration', () => {
     const result = parseQuizConfig(valid);
     expect(result.topics[0].questions[0].points).toBe(100);
+    expect(result.settings.defaultTimerSeconds).toBe(60);
+    expect(result.settings.jokerUses.askAudience).toBe(3);
   });
 
   it('reports duplicate IDs and missing image alt text', () => {

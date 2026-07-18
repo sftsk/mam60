@@ -4,12 +4,13 @@
 
   export let score: number;
   export let prizes: QuizPrize[];
+  export let revealedPrizeIds: string[];
   export let imageUrl: (path: string | undefined) => string | undefined;
   export let onClose: () => void;
 
   let dialog: HTMLDialogElement;
   let failedImages: Record<string, boolean> = {};
-  $: unlocked = prizes.filter((prize) => score >= prize.requiredPoints);
+  $: unlocked = prizes.filter((prize) => revealedPrizeIds.includes(prize.id));
   $: highest = unlocked.at(-1);
 
   const confetti = Array.from({ length: 32 }, (_, index) => ({

@@ -1,4 +1,4 @@
-import type { LoadedQuiz, QuizConfig, QuizPrize, QuizQuestion, QuizTopic } from './types';
+import type { JokerLimits, LoadedQuiz, QuizConfig, QuizPrize, QuizQuestion, QuizSettings, QuizTopic } from './types';
 
 export class QuizConfigError extends Error {
   constructor(public readonly problems: string[]) {
@@ -41,6 +41,56 @@ function readInteger(
   return value as number;
 }
 
+function readRangedInteger(
+  object: Record<string, unknown>,
+  key: string,
+  path: string,
+  problems: string[],
+  fallback: number,
+  minimum: number,
+  maximum: number,
+  optional = false
+): number | undefined {
+  const value = object[key];
+  if (optional && value === undefined) return undefined;
+  if (value === undefined) return fallback;
+  if (!Number.isInteger(value) || (value as number) < minimum || (value as number) > maximum) {
+    problems.push(`${path}.${key} muss eine ganze Zahl zwischen ${minimum} und ${maximum} sein.`);
+    return fallback;
+  }
+  return value as number;
+}
+
+function parseSettings(value: unknown, problems: string[]): QuizSettings {
+  const defaults: QuizSettings = {
+    defaultTimerSeconds: 60,
+    jokerUses: { callFriend: 3, threeOptions: 3, askAudience: 3 }
+  };
+  if (value === undefined) return defaults;
+  if (!isRecord(value)) {
+    problems.push('quiz.settings muss ein Objekt sein.');
+    return defaults;
+  }
+  const jokerValue = value.jokerUses;
+  let jokerUses: JokerLimits = defaults.jokerUses;
+  if (jokerValue !== undefined) {
+    if (!isRecord(jokerValue)) {
+      problems.push('quiz.settings.jokerUses muss ein Objekt sein.');
+    } else {
+      jokerUses = {
+        callFriend: readRangedInteger(jokerValue, 'callFriend', 'settings.jokerUses', problems, 3, 0, 20) ?? 3,
+        threeOptions: readRangedInteger(jokerValue, 'threeOptions', 'settings.jokerUses', problems, 3, 0, 20) ?? 3,
+        askAudience: readRangedInteger(jokerValue, 'askAudience', 'settings.jokerUses', problems, 3, 0, 20) ?? 3
+      };
+    }
+  }
+  return {
+    defaultTimerSeconds:
+      readRangedInteger(value, 'defaultTimerSeconds', 'settings', problems, 60, 5, 600) ?? 60,
+    jokerUses
+  };
+}
+
 function validateImage(
   source: Record<string, unknown>,
   path: string,
@@ -61,6 +111,7 @@ export function parseQuizConfig(value: unknown): QuizConfig {
   const id = readString(value, 'id', 'quiz', problems) ?? 'invalid';
   const title = readString(value, 'title', 'quiz', problems) ?? 'Ungültiges Quiz';
   const subtitle = readString(value, 'subtitle', 'quiz', problems, true);
+  const settings = parseSettings(value.settings, problems);
   if (value.locale !== 'de') problems.push('quiz.locale muss "de" sein.');
 
   const seenIds = new Set<string>();
@@ -96,11 +147,35 @@ export function parseQuizConfig(value: unknown): QuizConfig {
             readString(questionValue, 'id', questionPath, problems) ??
             `invalid-question-${topicIndex}-${questionIndex}`;
           claimId(questionId, questionPath);
+          let jokerOptions: [string, string, string] = ['Option A', 'Option B', 'Option C'];
+          if (
+            !Array.isArray(questionValue.jokerOptions) ||
+            questionValue.jokerOptions.length !== 3 ||
+            questionValue.jokerOptions.some((option) => typeof option !== 'string' || option.trim() === '')
+          ) {
+            problems.push(`${questionPath}.jokerOptions muss genau drei nicht-leere Antworten enthalten.`);
+          } else {
+            jokerOptions = questionValue.jokerOptions.map((option) => option.trim()) as [string, string, string];
+            if (new Set(jokerOptions).size !== 3) {
+              problems.push(`${questionPath}.jokerOptions muss drei unterschiedliche Antworten enthalten.`);
+            }
+          }
           questions.push({
             id: questionId,
             points: readInteger(questionValue, 'points', questionPath, problems),
             prompt: readString(questionValue, 'prompt', questionPath, problems) ?? 'Ungültige Frage',
             answer: readString(questionValue, 'answer', questionPath, problems) ?? 'Ungültige Antwort',
+            jokerOptions,
+            timerSeconds: readRangedInteger(
+              questionValue,
+              'timerSeconds',
+              questionPath,
+              problems,
+              settings.defaultTimerSeconds,
+              5,
+              600,
+              true
+            ),
             ...validateImage(questionValue, questionPath, problems)
           });
         });
@@ -138,6 +213,7 @@ export function parseQuizConfig(value: unknown): QuizConfig {
     title,
     subtitle,
     locale: 'de',
+    settings,
     topics,
     prizes: prizes.sort((a, b) => a.requiredPoints - b.requiredPoints)
   };

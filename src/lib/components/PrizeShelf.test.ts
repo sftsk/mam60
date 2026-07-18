@@ -15,14 +15,18 @@ const prizes = [
 
 describe('PrizeShelf', () => {
   it('keeps prize details secret until the threshold is reached', async () => {
-    const view = render(PrizeShelf, { prizes, score: 0, imageUrl: (path) => path });
+    const view = render(PrizeShelf, { prizes, score: 0, revealedPrizeIds: [], imageUrl: (path) => path });
 
     expect(screen.queryByText('Süße Belohnung')).not.toBeInTheDocument();
     expect(screen.queryByText('Ein Lieblingssnack.')).not.toBeInTheDocument();
     expect(screen.getByText('Geheimer Preis')).toBeInTheDocument();
     expect(screen.queryByRole('img', { name: 'Eine Torte.' })).not.toBeInTheDocument();
 
-    await view.rerender({ prizes, score: 1500, imageUrl: (path) => path });
+    await view.rerender({ prizes, score: 1500, revealedPrizeIds: [], imageUrl: (path) => path });
+    expect(screen.queryByText('Süße Belohnung')).not.toBeInTheDocument();
+    expect(screen.getByText('Freigeschalteter Preis')).toBeInTheDocument();
+
+    await view.rerender({ prizes, score: 1500, revealedPrizeIds: ['secret-prize'], imageUrl: (path) => path });
     expect(screen.getByText('Süße Belohnung')).toBeInTheDocument();
     expect(screen.getByText('Ein Lieblingssnack.')).toBeInTheDocument();
     expect(screen.getByRole('img', { name: 'Eine Torte.' })).toBeInTheDocument();

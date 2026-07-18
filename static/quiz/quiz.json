@@ -1,9 +1,17 @@
 {
   "schemaVersion": 1,
-  "id": "geburtstagsquiz-2026",
+  "id": "geburtstagsquiz-2026-v2",
   "title": "Die große Geburtstagsrunde",
   "subtitle": "Sechs Themen, dreißig Fragen und jede Menge Grund zum Feiern!",
   "locale": "de",
+  "settings": {
+    "defaultTimerSeconds": 60,
+    "jokerUses": {
+      "callFriend": 3,
+      "threeOptions": 3,
+      "askAudience": 3
+    }
+  },
   "topics": [
     {
       "id": "food-drinks",
@@ -12,34 +20,37 @@
         {
           "id": "food-100",
           "points": 100,
-          "prompt": "Welche Frucht ist die Hauptzutat einer klassischen Guacamole?",
-          "answer": "Die Avocado."
+          "prompt": "Welche drei Farben spiegeln die klassischen Zutaten einer Pizza Margherita wider?",
+          "answer": "Rot, Weiß und Grün – durch Tomate, Mozzarella und Basilikum.",
+          "jokerOptions": ["Tomate, Mozzarella, Basilikum", "Paprika, Ricotta, Petersilie", "Salami, Parmesan, Rucola"]
         },
         {
           "id": "food-200",
           "points": 200,
-          "prompt": "Welches Gas sorgt für die Bläschen in Mineralwasser?",
-          "answer": "Kohlenstoffdioxid (CO₂)."
+          "prompt": "Welche Zutat gehört nicht in eine traditionelle römische Carbonara?",
+          "answer": "Sahne. Klassisch verwendet man Guanciale, Ei, Pecorino Romano und Pfeffer.",
+          "jokerOptions": ["Sahne", "Guanciale", "Pecorino Romano"]
         },
         {
           "id": "food-300",
           "points": 300,
-          "prompt": "Welches Gewürz ist hier stilisiert abgebildet?",
-          "answer": "Sternanis.",
-          "image": "images/questions/sternanis.svg",
-          "imageAlt": "Ein braunes, sternförmiges Gewürz mit acht Spitzen."
+          "prompt": "Welche Reissorte wird besonders häufig für cremiges italienisches Risotto verwendet?",
+          "answer": "Zum Beispiel Arborio oder Carnaroli.",
+          "jokerOptions": ["Arborio", "Basmati", "Jasminreis"]
         },
         {
           "id": "food-400",
           "points": 400,
-          "prompt": "Wie heißt die Reaktion, die beim scharfen Anbraten für Röstaromen und Bräunung sorgt?",
-          "answer": "Die Maillard-Reaktion."
+          "prompt": "Welche Käsesorte bildet traditionell die Cremebasis eines Tiramisù?",
+          "answer": "Mascarpone.",
+          "jokerOptions": ["Mascarpone", "Ricotta salata", "Gorgonzola"]
         },
         {
           "id": "food-500",
           "points": 500,
-          "prompt": "Aus welchem Getreide wird traditioneller italienischer Risotto hauptsächlich zubereitet?",
-          "answer": "Aus speziellen Rundkorn-Reissorten, zum Beispiel Arborio oder Carnaroli."
+          "prompt": "Welches Fleischstück steckt hinter dem Mailänder Gericht Ossobuco?",
+          "answer": "Eine quer geschnittene Kalbshaxe mit Knochen und Mark.",
+          "jokerOptions": ["Kalbshaxe", "Schweinefilet", "Lammkarree"]
         }
       ]
     },
@@ -51,31 +62,36 @@
           "id": "literature-100",
           "points": 100,
           "prompt": "Wer schrieb die Harry-Potter-Romane?",
-          "answer": "J. K. Rowling."
+          "answer": "J. K. Rowling.",
+          "jokerOptions": ["J. K. Rowling", "Cornelia Funke", "Suzanne Collins"]
         },
         {
           "id": "literature-200",
           "points": 200,
           "prompt": "Von welchem deutschen Dichter stammt das Drama „Faust“?",
-          "answer": "Johann Wolfgang von Goethe."
+          "answer": "Johann Wolfgang von Goethe.",
+          "jokerOptions": ["Johann Wolfgang von Goethe", "Friedrich Schiller", "Heinrich Heine"]
         },
         {
           "id": "literature-300",
           "points": 300,
           "prompt": "Wer ist der Autor von „Don Quijote“?",
-          "answer": "Miguel de Cervantes."
+          "answer": "Miguel de Cervantes.",
+          "jokerOptions": ["Miguel de Cervantes", "Gabriel García Márquez", "Federico García Lorca"]
         },
         {
           "id": "literature-400",
           "points": 400,
           "prompt": "Wie heißt die Hauptfigur, die in Kafkas „Die Verwandlung“ als ungeheures Ungeziefer erwacht?",
-          "answer": "Gregor Samsa."
+          "answer": "Gregor Samsa.",
+          "jokerOptions": ["Gregor Samsa", "Josef K.", "Hans Castorp"]
         },
         {
           "id": "literature-500",
           "points": 500,
           "prompt": "Welches mittelhochdeutsche Heldenepos erzählt unter anderem von Siegfried und Kriemhild?",
-          "answer": "Das Nibelungenlied."
+          "answer": "Das Nibelungenlied.",
+          "jokerOptions": ["Das Nibelungenlied", "Parzival", "Der arme Heinrich"]
         }
       ]
     },
@@ -87,19 +103,22 @@
           "id": "history-100",
           "points": 100,
           "prompt": "In welchem Jahr fiel die Berliner Mauer?",
-          "answer": "1989."
+          "answer": "1989.",
+          "jokerOptions": ["1989", "1987", "1991"]
         },
         {
           "id": "history-200",
           "points": 200,
           "prompt": "Wer wurde 1871 der erste Reichskanzler des Deutschen Kaiserreichs?",
-          "answer": "Otto von Bismarck."
+          "answer": "Otto von Bismarck.",
+          "jokerOptions": ["Otto von Bismarck", "Wilhelm I.", "Friedrich Ebert"]
         },
         {
           "id": "history-300",
           "points": 300,
           "prompt": "Welches Ereignis begann 1789 mit dem Sturm auf die Bastille?",
           "answer": "Die Französische Revolution.",
+          "jokerOptions": ["Die Französische Revolution", "Die Julirevolution", "Die Pariser Kommune"],
           "image": "images/questions/bastille.svg",
           "imageAlt": "Eine stilisierte Festung mit französischen Trikolore-Bannern und der Jahreszahl 1789."
         },
@@ -107,49 +126,56 @@
           "id": "history-400",
           "points": 400,
           "prompt": "Welcher Friedensschluss beendete 1648 den Dreißigjährigen Krieg?",
-          "answer": "Der Westfälische Friede."
+          "answer": "Der Westfälische Friede.",
+          "jokerOptions": ["Der Westfälische Friede", "Der Wiener Kongress", "Der Augsburger Religionsfriede"]
         },
         {
           "id": "history-500",
           "points": 500,
           "prompt": "Wie heißt die Urkunde, die der englische König Johann 1215 in Runnymede besiegelte?",
-          "answer": "Magna Carta."
+          "answer": "Magna Carta.",
+          "jokerOptions": ["Magna Carta", "Bill of Rights", "Domesday Book"]
         }
       ]
     },
     {
-      "id": "pokemon",
-      "title": "Pokémon",
+      "id": "cartoons-comics",
+      "title": "Cartoons & Comics",
       "questions": [
         {
-          "id": "pokemon-100",
+          "id": "cartoons-100",
           "points": 100,
-          "prompt": "Welchem Typ gehört Pikachu an?",
-          "answer": "Dem Typ Elektro."
+          "prompt": "Wie heißt Micky Maus’ treuer Hund?",
+          "answer": "Pluto.",
+          "jokerOptions": ["Pluto", "Goofy", "Snoopy"]
         },
         {
-          "id": "pokemon-200",
+          "id": "cartoons-200",
           "points": 200,
-          "prompt": "Welche drei Starter-Pokémon stehen in der Kanto-Region zur Wahl?",
-          "answer": "Bisasam, Glumanda und Schiggy."
+          "prompt": "Wie heißt Winnie Puuhs kleiner, oft ängstlicher Freund?",
+          "answer": "Ferkel.",
+          "jokerOptions": ["Ferkel", "Tigger", "I-Aah"]
         },
         {
-          "id": "pokemon-300",
+          "id": "cartoons-300",
           "points": 300,
-          "prompt": "Zu welchem Pokémon entwickelt sich Karpador?",
-          "answer": "Zu Garados."
+          "prompt": "Welcher Comic-Cowboy schießt schneller als sein Schatten?",
+          "answer": "Lucky Luke.",
+          "jokerOptions": ["Lucky Luke", "Blueberry", "Yakari"]
         },
         {
-          "id": "pokemon-400",
+          "id": "cartoons-400",
           "points": 400,
-          "prompt": "Wie viele Pokémon-Typen gibt es seit der Einführung des Feen-Typs?",
-          "answer": "18 Typen."
+          "prompt": "Wie heißt der Druide, der im Dorf von Asterix den Zaubertrank braut?",
+          "answer": "Miraculix.",
+          "jokerOptions": ["Miraculix", "Majestix", "Methusalix"]
         },
         {
-          "id": "pokemon-500",
+          "id": "cartoons-500",
           "points": 500,
-          "prompt": "Welches Pokémon trägt im nationalen Pokédex die Nummer 150?",
-          "answer": "Mewtu."
+          "prompt": "Wie heißt der Barkeeper in der Zeichentrickserie „Die Simpsons“?",
+          "answer": "Moe Szyslak.",
+          "jokerOptions": ["Moe Szyslak", "Ned Flanders", "Barney Gumble"]
         }
       ]
     },
@@ -161,13 +187,15 @@
           "id": "sports-100",
           "points": 100,
           "prompt": "Wie viele Spielerinnen oder Spieler einer Fußballmannschaft stehen regulär gleichzeitig auf dem Feld?",
-          "answer": "Elf."
+          "answer": "Elf.",
+          "jokerOptions": ["Elf", "Neun", "Zwölf"]
         },
         {
           "id": "sports-200",
           "points": 200,
           "prompt": "In welcher Sportart bedeutet ein „Birdie“, ein Loch mit einem Schlag unter Par zu spielen?",
           "answer": "Golf.",
+          "jokerOptions": ["Golf", "Cricket", "Baseball"],
           "image": "images/questions/golf.svg",
           "imageAlt": "Ein grünes Spielfeld mit Loch, Fahne und einem kleinen weißen Ball."
         },
@@ -175,19 +203,22 @@
           "id": "sports-300",
           "points": 300,
           "prompt": "Wie lang ist die offizielle Marathondistanz?",
-          "answer": "42,195 Kilometer."
+          "answer": "42,195 Kilometer.",
+          "jokerOptions": ["42,195 Kilometer", "40 Kilometer", "45,5 Kilometer"]
         },
         {
           "id": "sports-400",
           "points": 400,
           "prompt": "Aus wie vielen Disziplinen besteht ein Zehnkampf?",
-          "answer": "Aus zehn Disziplinen."
+          "answer": "Aus zehn Disziplinen.",
+          "jokerOptions": ["Zehn", "Acht", "Zwölf"]
         },
         {
           "id": "sports-500",
           "points": 500,
           "prompt": "In welcher Leichtathletik-Disziplin wird die Technik „Fosbury-Flop“ eingesetzt?",
-          "answer": "Im Hochsprung."
+          "answer": "Im Hochsprung.",
+          "jokerOptions": ["Hochsprung", "Stabhochsprung", "Dreisprung"]
         }
       ]
     },
@@ -198,34 +229,39 @@
         {
           "id": "technology-100",
           "points": 100,
-          "prompt": "Wofür steht die Abkürzung CPU?",
-          "answer": "Central Processing Unit, auf Deutsch zentrale Verarbeitungseinheit."
+          "prompt": "Welche grundlegende Erfindung verringerte den Reibungswiderstand beim Transport schwerer Lasten entscheidend?",
+          "answer": "Das Rad.",
+          "jokerOptions": ["Das Rad", "Der Keil", "Der Flaschenzug"]
         },
         {
           "id": "technology-200",
           "points": 200,
-          "prompt": "Welche Dezimalzahl stellt die abgebildete Binärzahl dar?",
-          "answer": "Die Dezimalzahl 10.",
-          "image": "images/questions/binary.svg",
-          "imageAlt": "Die vier Binärziffern eins, null, eins, null."
+          "prompt": "Welche Drucktechnik machte Johannes Gutenberg im 15. Jahrhundert in Europa berühmt?",
+          "answer": "Der Buchdruck mit beweglichen Metalllettern.",
+          "jokerOptions": ["Bewegliche Metalllettern", "Lithografie", "Siebdruck"]
         },
         {
           "id": "technology-300",
           "points": 300,
-          "prompt": "Wofür steht die Abkürzung HTML?",
-          "answer": "HyperText Markup Language."
+          "prompt": "Welche Dezimalzahl stellt die abgebildete Binärzahl dar?",
+          "answer": "Die Dezimalzahl 10.",
+          "jokerOptions": ["10", "8", "12"],
+          "image": "images/questions/binary.svg",
+          "imageAlt": "Die vier Binärziffern eins, null, eins, null."
         },
         {
           "id": "technology-400",
           "points": 400,
-          "prompt": "Welche zwei Schlüsselarten werden bei asymmetrischer Verschlüsselung verwendet?",
-          "answer": "Ein öffentlicher und ein privater Schlüssel."
+          "prompt": "Welches Bauteil erlaubt den angetriebenen Rädern eines Autos, sich in einer Kurve unterschiedlich schnell zu drehen?",
+          "answer": "Das Differentialgetriebe.",
+          "jokerOptions": ["Differentialgetriebe", "Schwungrad", "Turbolader"]
         },
         {
           "id": "technology-500",
           "points": 500,
-          "prompt": "Welcher bekannte Algorithmus berechnet kürzeste Wege in einem Graphen mit nicht-negativen Kantengewichten?",
-          "answer": "Der Dijkstra-Algorithmus."
+          "prompt": "Welche Maschine steuerte bereits um 1800 komplexe Muster mithilfe von Lochkarten?",
+          "answer": "Der Jacquardwebstuhl.",
+          "jokerOptions": ["Jacquardwebstuhl", "Spinning Jenny", "Dampfhammer"]
         }
       ]
     }
@@ -262,6 +298,14 @@
       "description": "Das große Finale für echte Quiz-Champions.",
       "image": "images/prizes/main.svg",
       "imageAlt": "Ein goldener Pokal mit Konfetti."
+    },
+    {
+      "id": "prize-crown",
+      "requiredPoints": 9000,
+      "title": "Die Quiz-Krone",
+      "description": "Perfekte Runde – dieser Preis gehört nur echten Legenden.",
+      "image": "images/prizes/crown.svg",
+      "imageAlt": "Eine goldene Krone mit bunten Edelsteinen und Sternen."
     }
   ]
 }

@@ -7,7 +7,7 @@ const topics = [
   {
     id: 'topic',
     title: 'Testthema',
-    questions: [{ id: 'question', points: 100, prompt: 'Frage?', answer: 'Antwort' }]
+    questions: [{ id: 'question', points: 100, prompt: 'Frage?', answer: 'Antwort', jokerOptions: ['A', 'B', 'C'] as [string, string, string] }]
   }
 ];
 
