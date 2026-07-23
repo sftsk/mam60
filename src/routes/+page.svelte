@@ -206,7 +206,7 @@
   <title>{config?.title ?? 'Geburtstagsquiz'}</title>
   <meta
     name="description"
-    content="Ein farbenfrohes Jeopardy-inspiriertes Geburtstagsquiz mit sieben Themen."
+    content="Ein farbenfrohes Jeopardy-inspiriertes Geburtstagsquiz mit acht Themen."
   />
 </svelte:head>
 

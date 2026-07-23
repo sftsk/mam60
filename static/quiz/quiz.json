@@ -347,6 +347,54 @@
           "jokerOptions": ["Dmitri Mendelejew", "Niels Bohr", "Michael Faraday"]
         }
       ]
+    },
+    {
+      "id": "music-entertainment",
+      "title": "Musik & Unterhaltung",
+      "questions": [
+        {
+          "id": "music-100",
+          "points": 100,
+          "prompt": "Wie heißt der Halbgott, der Vaiana auf ihrer Reise über den Ozean begleitet?",
+          "answer": "Maui.",
+          "jokerOptions": ["Maui", "Tamatoa", "Tui"]
+        },
+        {
+          "id": "music-200",
+          "points": 200,
+          "prompt": "Welcher mit „Ganz in Weiß“ berühmt gewordene Schlagerstar hieß bürgerlich Gerhard Höllerich?",
+          "answer": "Roy Black.",
+          "jokerOptions": ["Roy Black", "Rex Gildo", "Peter Alexander"]
+        },
+        {
+          "id": "music-300",
+          "points": 300,
+          "prompt": "Welcher italienische Sänger veröffentlichte 1983 den Hit „L’Italiano“?",
+          "answer": "Toto Cutugno.",
+          "jokerOptions": ["Toto Cutugno", "Eros Ramazzotti", "Adriano Celentano"]
+        },
+        {
+          "id": "music-400",
+          "points": 400,
+          "prompt": "Mikä on sen Muumi-hahmon nimi, joka asuu talvisin Muumiperheen uimahuoneessa?",
+          "answer": "Tuu-tikki.",
+          "jokerOptions": ["Tuu-tikki", "Mymmeli", "Vilijonkka"]
+        },
+        {
+          "id": "music-500",
+          "points": 500,
+          "prompt": "Wie nennt man die bei großen Outdoor-Raves häufig eingesetzte Anordnung aus mehreren Lautsprechermodulen, die eine große Fläche gleichmäßig beschallen soll?",
+          "answer": "Ein Line Array.",
+          "jokerOptions": ["Line Array", "Monitor-Wedge", "Bassreflexgehäuse"]
+        },
+        {
+          "id": "music-600",
+          "points": 600,
+          "prompt": "Welcher Film gewann 2020 als erster nicht englischsprachiger Film den Oscar als bester Film?",
+          "answer": "„Parasite“.",
+          "jokerOptions": ["Parasite", "Roma", "Tiger and Dragon"]
+        }
+      ]
     }
   ],
   "prizes": [
@@ -360,7 +408,7 @@
     },
     {
       "id": "prize-drink",
-      "requiredPoints": 4000,
+      "requiredPoints": 4500,
       "title": "Etwas zum Kuscheln",
       "description": "Ein Kissen für extra gemütliche Momente.",
       "image": "images/prizes/colorful-cushion.png",
@@ -368,7 +416,7 @@
     },
     {
       "id": "prize-surprise",
-      "requiredPoints": 6000,
+      "requiredPoints": 7000,
       "title": "Etwas zum Erfrischen",
       "description": "Ein Spaziergang mit einem prickelnden Lieblingsgetränk zum Abschluss.",
       "image": "images/prizes/celebration-drink.png",
@@ -376,7 +424,7 @@
     },
     {
       "id": "prize-main",
-      "requiredPoints": 8000,
+      "requiredPoints": 9500,
       "title": "Etwas zum Erleben",
       "description": "Eine Runde Bowling mit ordentlich Schwung.",
       "image": "images/prizes/bowling.png",
@@ -384,7 +432,7 @@
     },
     {
       "id": "prize-crown",
-      "requiredPoints": 10000,
+      "requiredPoints": 12500,
       "title": "Etwas zum Genießen",
       "description": "Ein genußvoller Abend zusammen mit den Hosts.",
       "image": "images/prizes/gourmet-carrots-v2.png",

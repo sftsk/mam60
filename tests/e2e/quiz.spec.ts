@@ -42,22 +42,22 @@ test('admin mode can correct the score and reset the game', async ({ page }) => 
   await expect(page.getByText('0', { exact: true }).first()).toBeVisible();
 });
 
-test('a joker pauses and resets the timer and persists its use', async ({ page }) => {
+test('answer and audience jokers restart the timer immediately and persist their use', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('button', { name: 'Essen & Trinken für 100 Punkte' }).click();
   await expect(page.getByRole('timer')).toHaveAttribute('aria-label', /Sekunden verbleiben/);
   await page.waitForTimeout(2100);
 
   await page.getByRole('button', { name: /3 Antworten/ }).click();
-  await expect(page.getByRole('dialog', { name: 'Joker aktiv' })).toContainText('Timer pausiert');
-  await expect(page.getByRole('timer')).toHaveAttribute('aria-label', '60 Sekunden verbleiben');
-  await page.getByRole('button', { name: 'Timer neu starten' }).click();
+  await expect(page.getByRole('dialog', { name: 'Joker aktiv' })).toHaveCount(0);
+  await expect(page.getByRole('timer')).toHaveAttribute('aria-label', /(?:59|60) Sekunden verbleiben/);
   await expect(page.getByLabel('Antwortmöglichkeiten')).toContainText('Tomate, Mozzarella, Basilikum');
   await expect(page.getByRole('button', { name: /3 Antworten/ })).toContainText('2 übrig');
 
   await expect(page.getByRole('button', { name: /Publikum/ })).toContainText('99+ übrig');
   await page.getByRole('button', { name: /Publikum/ }).click();
-  await page.getByRole('button', { name: 'Timer neu starten' }).click();
+  await expect(page.getByRole('dialog', { name: 'Joker aktiv' })).toHaveCount(0);
+  await expect(page.getByRole('timer')).toHaveAttribute('aria-label', /(?:59|60) Sekunden verbleiben/);
   await expect(page.getByRole('button', { name: /Publikum/ })).toContainText('99+ übrig');
 
   await page.getByRole('button', { name: 'Frage schließen' }).click();
@@ -123,7 +123,7 @@ test('shows the celebration automatically after the final answer', async ({ page
   test.skip(testInfo.project.name.includes('mobile'), 'The complete flow is identical at both breakpoints.');
   await page.goto('/');
 
-  for (let index = 0; index < 42; index += 1) {
+  for (let index = 0; index < 48; index += 1) {
     await page.locator('.question-list button:not(:disabled)').first().click();
     const dailyDoubleReveal = page.getByRole('button', { name: 'Frage zeigen' });
     if (await dailyDoubleReveal.isVisible()) await dailyDoubleReveal.click();

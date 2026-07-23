@@ -95,9 +95,10 @@
     timedOut = false;
     lastTickBucket = Math.floor(remainingMs / 1000);
     musicStep = 0;
-    activeJoker = joker;
-    timerPaused = true;
     if (joker === 'threeOptions' || joker === 'askAudience') showOptions = true;
+    activeJoker = joker === 'callFriend' ? joker : null;
+    timerPaused = joker === 'callFriend';
+    lastTimestamp = performance.now();
     onUseJoker(joker);
   }
 
@@ -198,16 +199,10 @@
   {#if activeJoker}
     <div class="joker-pause" role="dialog" aria-modal="true" aria-label="Joker aktiv">
       <div class="joker-pause-card">
-        <span class="pause-icon" aria-hidden="true">{activeJoker === 'callFriend' ? '☎' : activeJoker === 'threeOptions' ? '≡' : '♟'}</span>
+        <span class="pause-icon" aria-hidden="true">☎</span>
         <p class="eyebrow">Timer pausiert</p>
-        <h3>{activeJoker === 'callFriend' ? 'Ruf jemanden an!' : activeJoker === 'threeOptions' ? 'Drei Antworten' : 'Frag das Publikum!'}</h3>
-        <p>
-          {activeJoker === 'callFriend'
-            ? 'Nimm dir Zeit für einen kurzen Anruf. Der Countdown wartet auf dich.'
-            : activeJoker === 'threeOptions'
-              ? 'Die drei Antwortmöglichkeiten sind jetzt eingeblendet.'
-              : 'Lass das Publikum über die eingeblendeten Möglichkeiten abstimmen.'}
-        </p>
+        <h3>Ruf jemanden an!</h3>
+        <p>Nimm dir Zeit für einen kurzen Anruf. Der Countdown wartet auf dich.</p>
         <button type="button" class="primary-button" on:click={resumeAfterJoker}>Timer neu starten</button>
       </div>
     </div>

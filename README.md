@@ -46,7 +46,7 @@ Wichtige Regeln:
 - `settings.jokerUses` konfiguriert die verfügbaren Telefon- und Drei-Antworten-Joker. Der Publikumsjoker ist unbegrenzt verfügbar; seine Nutzung wird trotzdem gezählt. Jede Frage braucht dafür genau drei unterschiedliche `jokerOptions`.
 - `settings.dailyDoubleQuestionId` legt das anfängliche Tagesdoppel fest. Im Adminbereich kann es vor dem Öffnen auf eine andere unbeantwortete Frage verschoben werden; eine richtige Antwort zählt doppelt.
 - Jedes konfigurierte Bild braucht einen beschreibenden `imageAlt`-Text.
-- Die Oberfläche unterstützt beliebig viele Themen und Fragen; das mitgelieferte Set umfasst sieben Themen mit jeweils sechs Fragen.
+- Die Oberfläche unterstützt beliebig viele Themen und Fragen; das mitgelieferte Set umfasst acht Themen mit jeweils sechs Fragen.
 - Der Fortschritt wird unter der Quiz-`id` gespeichert. Eine neue `id` startet einen unabhängigen Spielstand. Bei unveränderter `id` bleiben Ergebnisse gleichnamiger Fragen erhalten.
 
 ## Spiel- und Adminmodus
