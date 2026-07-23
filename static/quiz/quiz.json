@@ -384,7 +384,7 @@
           "id": "music-500",
           "points": 500,
           "prompt": "Wie nennt man die bei großen Outdoor-Raves häufig eingesetzte Anordnung aus mehreren Lautsprechermodulen, die eine große Fläche gleichmäßig beschallen soll?",
-          "answer": "Ein Line Array.",
+          "answer": "Ein Line Array / le mur / muro di casse.",
           "jokerOptions": ["Line Array", "Monitor-Wedge", "Bassreflexgehäuse"]
         },
         {
