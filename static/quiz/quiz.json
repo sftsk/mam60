@@ -370,7 +370,7 @@
       "id": "prize-surprise",
       "requiredPoints": 6000,
       "title": "Etwas zum Erfrischen",
-      "description": "Ein Spaziergang mit anschließenden prickelnden Lieblingsgetränk.",
+      "description": "Ein Spaziergang mit einem prickelnden Lieblingsgetränk zum Abschluss.",
       "image": "images/prizes/celebration-drink.png",
       "imageAlt": "Ein festliches, prickelndes Getränk mit Eis, Strohhalm und Zitrusfrüchten."
     },
@@ -387,7 +387,7 @@
       "requiredPoints": 10000,
       "title": "Etwas zum Genießen",
       "description": "Ein genußvoller Abend zusammen mit den Hosts.",
-      "image": "images/prizes/gourmet-carrots.png",
+      "image": "images/prizes/gourmet-carrots-v2.png",
       "imageAlt": "Drei freundlich lächelnde Gourmetkarotten auf einem Teller unter einer angehobenen Silberglocke."
     }
   ]
