@@ -10,6 +10,7 @@
   export let soundEnabled: boolean;
   export let jokerUses: Record<JokerType, number>;
   export let jokerLimits: JokerLimits;
+  export let isDailyDouble = false;
   export let onToggleSound: () => void;
   export let onUseJoker: (joker: JokerType) => void;
   export let onClose: () => void;
@@ -35,7 +36,7 @@
   $: remainingJokers = {
     callFriend: Math.max(0, jokerLimits.callFriend - Math.max(jokerUses.callFriend, initialJokerUses.callFriend + localJokerUses.callFriend)),
     threeOptions: Math.max(0, jokerLimits.threeOptions - Math.max(jokerUses.threeOptions, initialJokerUses.threeOptions + localJokerUses.threeOptions)),
-    askAudience: Math.max(0, jokerLimits.askAudience - Math.max(jokerUses.askAudience, initialJokerUses.askAudience + localJokerUses.askAudience))
+    askAudience: Number.POSITIVE_INFINITY
   };
 
   onMount(() => {
@@ -116,7 +117,7 @@
 <dialog bind:this={dialog} class="question-dialog" aria-labelledby="question-title" on:cancel={cancel}>
   <div class="dialog-topline">
     <span>{topic.title}</span>
-    <strong>{question.points} Punkte</strong>
+    <strong>{isDailyDouble ? question.points * 2 : question.points} Punkte{isDailyDouble ? ' · Tagesdoppel' : ''}</strong>
     <button
       type="button"
       class="sound-button"
@@ -175,8 +176,8 @@
         <button type="button" disabled={remainingJokers.threeOptions === 0} on:click={() => useJoker('threeOptions')}>
           <span aria-hidden="true">≡</span><strong>3 Antworten</strong><small>{remainingJokers.threeOptions} übrig</small>
         </button>
-        <button type="button" disabled={remainingJokers.askAudience === 0} on:click={() => useJoker('askAudience')}>
-          <span aria-hidden="true">♟</span><strong>Publikum</strong><small>{remainingJokers.askAudience} übrig</small>
+        <button type="button" on:click={() => useJoker('askAudience')}>
+          <span aria-hidden="true">♟</span><strong>Publikum</strong><small>99+ übrig</small>
         </button>
       </div>
       <button type="button" class="primary-button reveal-button" on:click={revealAnswer}>

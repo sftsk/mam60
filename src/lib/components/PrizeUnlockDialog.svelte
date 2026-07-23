@@ -6,12 +6,13 @@
   export let prize: QuizPrize;
   export let imageSrc: string | undefined;
   export let soundEnabled: boolean;
+  export let initiallyRevealed = false;
   export let onReveal: (prizeId: string) => void;
   export let onClose: () => void;
 
   let dialog: HTMLDialogElement;
   let shaking = false;
-  let revealed = false;
+  let revealed = initiallyRevealed;
   let imageFailed = false;
 
   onMount(() => dialog.showModal());
@@ -50,7 +51,7 @@
 
   <div class:shaking class:revealed class="mystery-gift" aria-hidden="true">
     {#if revealed && imageSrc && !imageFailed}
-      <img src={imageSrc} alt="" on:error={() => (imageFailed = true)} />
+      <img src={imageSrc} alt={prize.imageAlt ?? ''} on:error={() => (imageFailed = true)} />
     {:else if revealed}
       <span>🎁</span>
     {:else}

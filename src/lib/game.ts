@@ -1,4 +1,4 @@
-import type { JokerType, QuestionResult, QuizConfig, QuizProgress } from './types';
+import type { JokerType, QuestionResult, QuizConfig, QuizProgress, QuizQuestion } from './types';
 
 export function createProgress(quizId: string): QuizProgress {
   return {
@@ -39,6 +39,10 @@ export function normalizeProgress(value: unknown, quizId: string): QuizProgress 
       threeOptions: normalizeUseCount(candidate.jokerUses?.threeOptions),
       askAudience: normalizeUseCount(candidate.jokerUses?.askAudience)
     },
+    dailyDoubleQuestionId:
+      typeof candidate.dailyDoubleQuestionId === 'string' && candidate.dailyDoubleQuestionId.trim()
+        ? candidate.dailyDoubleQuestionId
+        : undefined,
     revealedPrizeIds: Array.isArray(candidate.revealedPrizeIds)
       ? [...new Set(candidate.revealedPrizeIds.filter((id): id is string => typeof id === 'string'))]
       : [],
@@ -67,11 +71,22 @@ export function baseScore(config: QuizConfig, progress: QuizProgress): number {
       total +
       topic.questions.reduce(
         (topicTotal, question) =>
-          topicTotal + (questionResult(progress, question.id) === 'correct' ? question.points : 0),
+          topicTotal + (questionResult(progress, question.id) === 'correct' ? pointsForQuestion(config, progress, question) : 0),
         0
       ),
     0
   );
+}
+
+export function dailyDoubleQuestionId(config: QuizConfig, progress: QuizProgress): string | undefined {
+  const questionId = progress.dailyDoubleQuestionId ?? config.settings.dailyDoubleQuestionId;
+  return questionId && config.topics.some((topic) => topic.questions.some((question) => question.id === questionId))
+    ? questionId
+    : undefined;
+}
+
+export function pointsForQuestion(config: QuizConfig, progress: QuizProgress, question: QuizQuestion): number {
+  return question.points * (question.id === dailyDoubleQuestionId(config, progress) ? 2 : 1);
 }
 
 export function score(config: QuizConfig, progress: QuizProgress): number {
@@ -118,6 +133,14 @@ export function withJokerUse(progress: QuizProgress, joker: JokerType): QuizProg
   return {
     ...progress,
     jokerUses: { ...progress.jokerUses, [joker]: progress.jokerUses[joker] + 1 },
+    updatedAt: new Date().toISOString()
+  };
+}
+
+export function withDailyDoubleQuestion(progress: QuizProgress, questionId: string): QuizProgress {
+  return {
+    ...progress,
+    dailyDoubleQuestionId: questionId,
     updatedAt: new Date().toISOString()
   };
 }

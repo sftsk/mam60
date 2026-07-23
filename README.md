@@ -43,16 +43,17 @@ Wichtige Regeln:
 - Alle Themen-, Fragen- und Preis-IDs müssen innerhalb eines Quiz eindeutig sein.
 - Punktwerte und Preisschwellen sind nicht-negative ganze Zahlen.
 - `settings.defaultTimerSeconds` legt die allgemeine Fragezeit fest; Standard sind 60 Sekunden. Eine Frage kann sie optional mit `timerSeconds` überschreiben.
-- `settings.jokerUses` konfiguriert die verfügbaren Telefon-, Drei-Antworten- und Publikumsjoker. Jede Frage braucht dafür genau drei unterschiedliche `jokerOptions`.
+- `settings.jokerUses` konfiguriert die verfügbaren Telefon- und Drei-Antworten-Joker. Der Publikumsjoker ist unbegrenzt verfügbar; seine Nutzung wird trotzdem gezählt. Jede Frage braucht dafür genau drei unterschiedliche `jokerOptions`.
+- `settings.dailyDoubleQuestionId` legt das anfängliche Tagesdoppel fest. Im Adminbereich kann es vor dem Öffnen auf eine andere unbeantwortete Frage verschoben werden; eine richtige Antwort zählt doppelt.
 - Jedes konfigurierte Bild braucht einen beschreibenden `imageAlt`-Text.
-- Die Oberfläche unterstützt beliebig viele Themen und Fragen; das mitgelieferte Set ist für sechs Themen mit jeweils fünf Fragen optimiert.
+- Die Oberfläche unterstützt beliebig viele Themen und Fragen; das mitgelieferte Set umfasst sieben Themen mit jeweils sechs Fragen.
 - Der Fortschritt wird unter der Quiz-`id` gespeichert. Eine neue `id` startet einen unabhängigen Spielstand. Bei unveränderter `id` bleiben Ergebnisse gleichnamiger Fragen erhalten.
 
 ## Spiel- und Adminmodus
 
 Eine Frage startet mit einem animierten Countdown. Eine sanfte, synthetisierte Countdown-Melodie beschleunigt sich in den letzten zehn Sekunden; richtige und falsche Antworten haben eigene Signale. Der Lautsprecher im Fragedialog schaltet alle Töne ein oder aus. Telefon-, Drei-Antworten- und Publikumsjoker pausieren den Timer und setzen ihn auf die volle Fragezeit zurück. Ihr Verbrauch bleibt nach einem Neuladen erhalten.
 
-Die Lösung wird von der moderierenden Person als **Richtig** oder **Falsch** bewertet. Nur richtige Antworten erhöhen den Punktestand und lösen einen kurzen Konfetti-Effekt aus. Titel, Beschreibung und Bild eines Preises bleiben bis zur jeweiligen Punkteschwelle geheim. Danach erscheint eine Freischaltmeldung; erst der Button **Preis enthüllen** startet einen hörbaren Trommelwirbel samt Schüttelanimation. Beim Aufdecken ertönt eine kurze Fanfare und der Preis bleibt dauerhaft sichtbar.
+Die Lösung wird von der moderierenden Person als **Richtig** oder **Falsch** bewertet. Nur richtige Antworten erhöhen den Punktestand und lösen einen kurzen Konfetti-Effekt aus. Titel, Beschreibung und Bild eines Preises bleiben bis zur jeweiligen Punkteschwelle geheim. Danach wird seine Karte anklickbar und öffnet den Preisdialog; erst der Button **Preis enthüllen** startet einen hörbaren Trommelwirbel samt Schüttelanimation. Beim Aufdecken ertönt eine kurze Fanfare und der Preis bleibt dauerhaft sichtbar. Bereits enthüllte Preise lassen sich über ihre Karte erneut im Dialog ansehen.
 
 Mit einem Doppelklick auf das gelbe Sternsymbol oder dem URL-Parameter `?admin=true` erscheint ein lokaler Korrekturbereich. Dort lassen sich Punktestand, Standard-Fragezeit und Fragenstatus korrigieren oder der gesamte Fortschritt nach Bestätigung löschen. Der versteckte Auslöser und der Parameter sind kein Zugriffsschutz.
 

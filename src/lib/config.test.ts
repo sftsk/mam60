@@ -8,7 +8,8 @@ const valid = {
   locale: 'de',
   settings: {
     defaultTimerSeconds: 60,
-    jokerUses: { callFriend: 3, threeOptions: 3, askAudience: 3 }
+    dailyDoubleQuestionId: 'q1',
+    jokerUses: { callFriend: 3, threeOptions: 3 }
   },
   topics: [
     {
@@ -25,7 +26,15 @@ describe('quiz config', () => {
     const result = parseQuizConfig(valid);
     expect(result.topics[0].questions[0].points).toBe(100);
     expect(result.settings.defaultTimerSeconds).toBe(60);
-    expect(result.settings.jokerUses.askAudience).toBe(3);
+    expect(result.settings.jokerUses).toEqual({ callFriend: 3, threeOptions: 3 });
+    expect(result.settings.dailyDoubleQuestionId).toBe('q1');
+  });
+
+  it('requires the configured daily double to reference a question', () => {
+    const broken = structuredClone(valid);
+    broken.settings.dailyDoubleQuestionId = 'missing-question';
+
+    expect(() => parseQuizConfig(broken)).toThrow(QuizConfigError);
   });
 
   it('reports duplicate IDs and missing image alt text', () => {

@@ -4,12 +4,12 @@ export type JokerType = 'callFriend' | 'threeOptions' | 'askAudience';
 export interface JokerLimits {
   callFriend: number;
   threeOptions: number;
-  askAudience: number;
 }
 
 export interface QuizSettings {
   defaultTimerSeconds: number;
   jokerUses: JokerLimits;
+  dailyDoubleQuestionId?: string;
 }
 
 export interface QuizQuestion {
@@ -55,6 +55,7 @@ export interface QuizProgress {
   questionResults: Record<string, QuestionResult>;
   scoreAdjustment: number;
   jokerUses: Record<JokerType, number>;
+  dailyDoubleQuestionId?: string;
   revealedPrizeIds: string[];
   timerSecondsOverride?: number;
   updatedAt: string;

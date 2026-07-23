@@ -103,6 +103,15 @@ export function playTimeoutSound() {
   tone(440, 0.35, 0.28, 'square', 0.05);
 }
 
+export function playDailyDoubleSound() {
+  [0, 0.12, 0.24, 0.36].forEach((delay, index) => drumHit(delay, 0.045 + index * 0.006));
+  tone(196, 0.55, 0, 'sawtooth', 0.035, 392);
+  tone(392, 0.24, 0.52, 'triangle', 0.055);
+  tone(523.25, 0.28, 0.68, 'triangle', 0.06);
+  tone(783.99, 0.62, 0.84, 'sine', 0.07);
+  tone(392, 0.7, 0.84, 'sine', 0.025);
+}
+
 export function playPrizeDrumroll() {
   const hits = [0, 0.14, 0.27, 0.39, 0.5, 0.6, 0.69, 0.77, 0.84];
   hits.forEach((delay, index) => drumHit(delay, 0.035 + index * 0.0025));

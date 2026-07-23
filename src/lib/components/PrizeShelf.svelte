@@ -5,6 +5,7 @@
   export let score: number;
   export let revealedPrizeIds: string[];
   export let imageUrl: (path: string | undefined) => string | undefined;
+  export let onSelectPrize: (prize: QuizPrize) => void = () => undefined;
 
   let failedImages: Record<string, boolean> = {};
 
@@ -35,7 +36,17 @@
     {#each prizes as prize (prize.id)}
       {@const reached = score >= prize.requiredPoints}
       {@const revealed = revealedPrizeIds.includes(prize.id)}
-      <article class:unlocked={revealed} class:reached class="prize-card">
+      <button
+        type="button"
+        class:unlocked={revealed}
+        class:reached
+        class="prize-card"
+        disabled={!reached}
+        aria-label={reached
+          ? `${revealed ? prize.title : 'Freigeschalteter Preis'} für ${prize.requiredPoints.toLocaleString('de-DE')} Punkte öffnen`
+          : `Geheimer Preis bei ${prize.requiredPoints.toLocaleString('de-DE')} Punkten`}
+        on:click={() => onSelectPrize(prize)}
+      >
         <div class="prize-image">
           {#if !revealed}
             <span class="mystery-mark" aria-hidden="true">?</span>
@@ -60,7 +71,7 @@
             <p>Wird beim Erreichen dieser Stufe freigeschaltet.</p>
           {/if}
         </div>
-      </article>
+      </button>
     {/each}
   </div>
 </section>

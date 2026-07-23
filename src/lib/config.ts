@@ -64,7 +64,8 @@ function readRangedInteger(
 function parseSettings(value: unknown, problems: string[]): QuizSettings {
   const defaults: QuizSettings = {
     defaultTimerSeconds: 60,
-    jokerUses: { callFriend: 3, threeOptions: 3, askAudience: 3 }
+    jokerUses: { callFriend: 3, threeOptions: 3 },
+    dailyDoubleQuestionId: undefined
   };
   if (value === undefined) return defaults;
   if (!isRecord(value)) {
@@ -79,15 +80,15 @@ function parseSettings(value: unknown, problems: string[]): QuizSettings {
     } else {
       jokerUses = {
         callFriend: readRangedInteger(jokerValue, 'callFriend', 'settings.jokerUses', problems, 3, 0, 20) ?? 3,
-        threeOptions: readRangedInteger(jokerValue, 'threeOptions', 'settings.jokerUses', problems, 3, 0, 20) ?? 3,
-        askAudience: readRangedInteger(jokerValue, 'askAudience', 'settings.jokerUses', problems, 3, 0, 20) ?? 3
+        threeOptions: readRangedInteger(jokerValue, 'threeOptions', 'settings.jokerUses', problems, 3, 0, 20) ?? 3
       };
     }
   }
   return {
     defaultTimerSeconds:
       readRangedInteger(value, 'defaultTimerSeconds', 'settings', problems, 60, 5, 600) ?? 60,
-    jokerUses
+    jokerUses,
+    dailyDoubleQuestionId: readString(value, 'dailyDoubleQuestionId', 'settings', problems, true)
   };
 }
 
@@ -182,6 +183,13 @@ export function parseQuizConfig(value: unknown): QuizConfig {
       }
       topics.push({ id: topicId, title: topicTitle, questions });
     });
+  }
+
+  if (
+    settings.dailyDoubleQuestionId &&
+    !topics.some((topic) => topic.questions.some((question) => question.id === settings.dailyDoubleQuestionId))
+  ) {
+    problems.push('settings.dailyDoubleQuestionId muss auf eine vorhandene Frage verweisen.');
   }
 
   const prizes: QuizPrize[] = [];

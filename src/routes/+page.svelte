@@ -3,6 +3,7 @@
   import { asset } from '$app/paths';
   import AdminPanel from '$lib/components/AdminPanel.svelte';
   import CorrectConfetti from '$lib/components/CorrectConfetti.svelte';
+  import DailyDoubleReveal from '$lib/components/DailyDoubleReveal.svelte';
   import PrizeShelf from '$lib/components/PrizeShelf.svelte';
   import PrizeUnlockDialog from '$lib/components/PrizeUnlockDialog.svelte';
   import QuestionDialog from '$lib/components/QuestionDialog.svelte';
@@ -14,7 +15,9 @@
   import {
     answeredCount,
     createProgress,
+    dailyDoubleQuestionId as getDailyDoubleQuestionId,
     normalizeProgress,
+    pointsForQuestion,
     questionResult,
     score,
     totalQuestions,
@@ -22,15 +25,17 @@
     withRevealedPrize,
     withTimerOverride,
     withDisplayedScore,
+    withDailyDoubleQuestion,
     withQuestionResult
   } from '$lib/game';
-  import { playCorrectSound, playWrongSound, prepareAudio } from '$lib/sounds';
+  import { playCorrectSound, playDailyDoubleSound, playWrongSound, prepareAudio } from '$lib/sounds';
   import type { JokerType, QuestionResult, QuizConfig, QuizPrize, QuizProgress, QuizQuestion, QuizTopic } from '$lib/types';
 
   let config: QuizConfig | null = null;
   let configUrl: URL | null = null;
   let progress: QuizProgress | null = null;
   let selected: { topic: QuizTopic; question: QuizQuestion } | null = null;
+  let pendingDailyDouble: { topic: QuizTopic; question: QuizQuestion } | null = null;
   let loading = true;
   let loadError = '';
   let persistenceWarning = '';
@@ -38,13 +43,13 @@
   let adminMode = false;
   let showResults = false;
   let correctCelebration: { id: number; points: number } | null = null;
-  let unlockQueue: QuizPrize[] = [];
   let activeUnlock: QuizPrize | null = null;
   let soundEnabled = true;
 
   $: currentScore = config && progress ? score(config, progress) : 0;
   $: answered = config && progress ? answeredCount(config, progress) : 0;
   $: total = config ? totalQuestions(config) : 0;
+  $: activeDailyDoubleId = config && progress ? getDailyDoubleQuestionId(config, progress) : undefined;
 
   onMount(async () => {
     adminMode = new URLSearchParams(window.location.search).get('admin') === 'true';
@@ -62,8 +67,7 @@
         persistenceAvailable = false;
         persistenceWarning = error instanceof Error ? error.message : 'Fortschritt kann nicht gespeichert werden.';
       }
-      const hasPendingPrize = schedulePrizeUnlocks(progress);
-      showResults = answeredCount(config, progress) === totalQuestions(config) && !hasPendingPrize;
+      showResults = answeredCount(config, progress) === totalQuestions(config);
     } catch (error) {
       if (error instanceof QuizConfigError) {
         loadError = error.problems.join('\n');
@@ -92,22 +96,6 @@
     window.localStorage.setItem('birthday-quiz-sound', soundEnabled ? 'on' : 'off');
   }
 
-  function schedulePrizeUnlocks(next: QuizProgress): boolean {
-    if (!config) return false;
-    const queuedIds = new Set([activeUnlock?.id, ...unlockQueue.map((prize) => prize.id)]);
-    const reached = config.prizes.filter(
-      (prize) =>
-        score(config!, next) >= prize.requiredPoints &&
-        !next.revealedPrizeIds.includes(prize.id) &&
-        !queuedIds.has(prize.id)
-    );
-    if (!activeUnlock && reached.length) {
-      activeUnlock = reached.shift() ?? null;
-    }
-    if (reached.length) unlockQueue = [...unlockQueue, ...reached];
-    return activeUnlock !== null || unlockQueue.length > 0;
-  }
-
   async function persist(next: QuizProgress) {
     progress = next;
     if (!persistenceAvailable) return;
@@ -122,7 +110,17 @@
   function selectQuestion(topic: QuizTopic, question: QuizQuestion) {
     if (!progress || questionResult(progress, question.id) !== 'unanswered') return;
     prepareAudio(soundEnabled);
-    selected = { topic, question };
+    if (question.id === activeDailyDoubleId) {
+      pendingDailyDouble = { topic, question };
+      if (soundEnabled) playDailyDoubleSound();
+    } else {
+      selected = { topic, question };
+    }
+  }
+
+  function showDailyDoubleQuestion() {
+    selected = pendingDailyDouble;
+    pendingDailyDouble = null;
   }
 
   async function answerQuestion(correct: boolean) {
@@ -130,15 +128,14 @@
     const answeredQuestion = selected.question;
     const next = withQuestionResult(progress, answeredQuestion.id, correct ? 'correct' : 'incorrect');
     if (correct) {
-      correctCelebration = { id: Date.now(), points: answeredQuestion.points };
+      correctCelebration = { id: Date.now(), points: pointsForQuestion(config, progress, answeredQuestion) };
       if (soundEnabled) playCorrectSound();
     } else if (soundEnabled) {
       playWrongSound();
     }
     selected = null;
     await persist(next);
-    const hasPendingPrize = schedulePrizeUnlocks(next);
-    if (answeredCount(config, next) === totalQuestions(config) && !hasPendingPrize) showResults = true;
+    if (answeredCount(config, next) === totalQuestions(config)) showResults = true;
   }
 
   async function useJoker(joker: JokerType) {
@@ -151,14 +148,12 @@
     showResults = false;
     const next = withQuestionResult(progress, questionId, result);
     await persist(next);
-    schedulePrizeUnlocks(next);
   }
 
   async function setScore(value: number) {
     if (!config || !progress || !Number.isFinite(value)) return;
     const next = withDisplayedScore(config, progress, value);
     await persist(next);
-    schedulePrizeUnlocks(next);
   }
 
   async function setTimer(seconds: number) {
@@ -166,17 +161,27 @@
     await persist(withTimerOverride(progress, seconds));
   }
 
+  async function setDailyDouble(questionId: string) {
+    if (
+      !progress ||
+      !config ||
+      !config.topics.some((topic) => topic.questions.some((question) => question.id === questionId))
+    ) return;
+    await persist(withDailyDoubleQuestion(progress, questionId));
+  }
+
   async function revealPrize(prizeId: string) {
     if (!progress) return;
     await persist(withRevealedPrize(progress, prizeId));
   }
 
+  function openPrize(prize: QuizPrize) {
+    if (currentScore < prize.requiredPoints) return;
+    activeUnlock = prize;
+  }
+
   function closePrizeUnlock() {
-    activeUnlock = unlockQueue[0] ?? null;
-    unlockQueue = unlockQueue.slice(1);
-    if (!activeUnlock && config && progress && answeredCount(config, progress) === totalQuestions(config)) {
-      showResults = true;
-    }
+    activeUnlock = null;
   }
 
   async function reset() {
@@ -184,9 +189,9 @@
     const next = createProgress(config.id);
     progress = next;
     selected = null;
+    pendingDailyDouble = null;
     showResults = false;
     activeUnlock = null;
-    unlockQueue = [];
     if (!persistenceAvailable) return;
     try {
       await deleteProgress(config.id);
@@ -201,7 +206,7 @@
   <title>{config?.title ?? 'Geburtstagsquiz'}</title>
   <meta
     name="description"
-    content="Ein farbenfrohes Jeopardy-inspiriertes Geburtstagsquiz mit sechs Themen."
+    content="Ein farbenfrohes Jeopardy-inspiriertes Geburtstagsquiz mit sieben Themen."
   />
 </svelte:head>
 
@@ -247,6 +252,7 @@
         score={currentScore}
         revealedPrizeIds={progress.revealedPrizeIds}
         imageUrl={media}
+        onSelectPrize={openPrize}
       />
 
       {#if adminMode}
@@ -255,9 +261,11 @@
           {progress}
           {currentScore}
           timerSeconds={progress.timerSecondsOverride ?? config.settings.defaultTimerSeconds}
+          dailyDoubleQuestionId={activeDailyDoubleId}
           {persistenceAvailable}
           onScoreChange={setScore}
           onTimerChange={setTimer}
+          onDailyDoubleChange={setDailyDouble}
           onResultChange={changeResult}
           onReset={reset}
         />
@@ -277,11 +285,16 @@
         {soundEnabled}
         jokerUses={progress.jokerUses}
         jokerLimits={config.settings.jokerUses}
+        isDailyDouble={selected.question.id === activeDailyDoubleId}
         onToggleSound={toggleSound}
         onUseJoker={useJoker}
         onClose={() => (selected = null)}
         onAnswer={answerQuestion}
       />
+    {/if}
+
+    {#if pendingDailyDouble}
+      <DailyDoubleReveal points={pendingDailyDouble.question.points} onDone={showDailyDoubleQuestion} />
     {/if}
 
     {#if showResults}
@@ -295,13 +308,16 @@
     {/if}
 
     {#if activeUnlock}
-      <PrizeUnlockDialog
-        prize={activeUnlock}
-        imageSrc={media(activeUnlock.image)}
-        {soundEnabled}
-        onReveal={revealPrize}
-        onClose={closePrizeUnlock}
-      />
+      {#key activeUnlock.id}
+        <PrizeUnlockDialog
+          prize={activeUnlock}
+          imageSrc={media(activeUnlock.image)}
+          {soundEnabled}
+          initiallyRevealed={progress.revealedPrizeIds.includes(activeUnlock.id)}
+          onReveal={revealPrize}
+          onClose={closePrizeUnlock}
+        />
+      {/key}
     {/if}
 
     {#if correctCelebration}

@@ -6,7 +6,7 @@
   export let progress: QuizProgress;
   export let onSelect: (topic: QuizTopic, question: QuizQuestion) => void;
 
-  const colors = ['#ff5c8a', '#7c3aed', '#06b6d4', '#f59e0b', '#10b981', '#ef4444'];
+  const colors = ['#ff5c8a', '#7c3aed', '#06b6d4', '#f59e0b', '#10b981', '#ef4444', '#2563eb'];
 </script>
 
 <section class="board" aria-label="Quizbrett">

@@ -7,8 +7,10 @@
   export let currentScore: number;
   export let persistenceAvailable: boolean;
   export let timerSeconds: number;
+  export let dailyDoubleQuestionId: string | undefined;
   export let onScoreChange: (score: number) => void;
   export let onTimerChange: (seconds: number) => void;
+  export let onDailyDoubleChange: (questionId: string) => void;
   export let onResultChange: (questionId: string, result: QuestionResult) => void;
   export let onReset: () => void;
 
@@ -20,16 +22,15 @@
   function changeResult(questionId: string, event: Event) {
     onResultChange(questionId, (event.currentTarget as HTMLSelectElement).value as QuestionResult);
   }
+
+  function changeDailyDouble(event: Event) {
+    onDailyDoubleChange((event.currentTarget as HTMLSelectElement).value);
+  }
 </script>
 
 <details class="admin-panel">
   <summary>Admin-Werkzeuge</summary>
   <div class="admin-content">
-    <div class="admin-notice">
-      <strong>Lokaler Korrekturmodus</strong>
-      <span>Dieser Bereich ist nicht passwortgeschützt.</span>
-    </div>
-
     <form class="score-editor" on:submit|preventDefault={() => onScoreChange(scoreInput)}>
       <label for="admin-score">Punktestand festlegen</label>
       <input id="admin-score" type="number" min="0" step="1" bind:value={scoreInput} />
@@ -43,11 +44,30 @@
       <button type="submit">Übernehmen</button>
     </form>
 
+    <div class="score-editor">
+      <label for="admin-daily-double">Tagesdoppel auswählen</label>
+      <select id="admin-daily-double" value={dailyDoubleQuestionId} on:change={changeDailyDouble}>
+        {#each config.topics as topic (topic.id)}
+          <optgroup label={topic.title}>
+            {#each topic.questions as question (question.id)}
+              <option
+                value={question.id}
+                disabled={questionResult(progress, question.id) !== 'unanswered' && question.id !== dailyDoubleQuestionId}
+              >
+                {question.points} Punkte · {question.prompt}
+              </option>
+            {/each}
+          </optgroup>
+        {/each}
+      </select>
+      <span class="input-unit">Zählt doppelt und bleibt bis zum Öffnen geheim.</span>
+    </div>
+
     <div class="admin-joker-summary">
       <strong>Joker-Verbrauch</strong>
       <span>Telefon: {progress.jokerUses.callFriend}/{config.settings.jokerUses.callFriend}</span>
       <span>3 Antworten: {progress.jokerUses.threeOptions}/{config.settings.jokerUses.threeOptions}</span>
-      <span>Publikum: {progress.jokerUses.askAudience}/{config.settings.jokerUses.askAudience}</span>
+      <span>Publikum: {progress.jokerUses.askAudience}× genutzt</span>
     </div>
 
     <div class="question-editor">

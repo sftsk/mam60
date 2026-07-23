@@ -2,20 +2,19 @@
   "schemaVersion": 1,
   "id": "geburtstagsquiz-2026-v2",
   "title": "Die große Geburtstagsrunde",
-  "subtitle": "Sechs Themen, dreißig Fragen und jede Menge Grund zum Feiern!",
   "locale": "de",
   "settings": {
     "defaultTimerSeconds": 60,
+    "dailyDoubleQuestionId": "cartoons-400",
     "jokerUses": {
       "callFriend": 3,
-      "threeOptions": 3,
-      "askAudience": 3
+      "threeOptions": 3
     }
   },
   "topics": [
     {
       "id": "food-drinks",
-      "title": "Food & Drinks",
+      "title": "Essen & Trinken",
       "questions": [
         {
           "id": "food-100",
@@ -27,7 +26,7 @@
         {
           "id": "food-200",
           "points": 200,
-          "prompt": "Welche Zutat gehört nicht in eine traditionelle römische Carbonara?",
+          "prompt": "Welche oft verwendete Zutat gehört nicht in eine traditionelle römische Carbonara?",
           "answer": "Sahne. Klassisch verwendet man Guanciale, Ei, Pecorino Romano und Pfeffer.",
           "jokerOptions": ["Sahne", "Guanciale", "Pecorino Romano"]
         },
@@ -48,15 +47,22 @@
         {
           "id": "food-500",
           "points": 500,
-          "prompt": "Welches Fleischstück steckt hinter dem Mailänder Gericht Ossobuco?",
-          "answer": "Eine quer geschnittene Kalbshaxe mit Knochen und Mark.",
-          "jokerOptions": ["Kalbshaxe", "Schweinefilet", "Lammkarree"]
+          "prompt": "Aus welcher roten Rebsorte wird der italienische Wein Barolo hauptsächlich gekeltert?",
+          "answer": "Nebbiolo.",
+          "jokerOptions": ["Nebbiolo", "Sangiovese", "Barbera"]
+        },
+        {
+          "id": "food-600",
+          "points": 600,
+          "prompt": "Welches Kraut prägt traditionell den Geschmack einer Sauce Béarnaise?",
+          "answer": "Estragon.",
+          "jokerOptions": ["Estragon", "Rosmarin", "Kreuzkümmel"]
         }
       ]
     },
     {
       "id": "literature",
-      "title": "Literature",
+      "title": "Kunst & Literatur",
       "questions": [
         {
           "id": "literature-100",
@@ -75,9 +81,9 @@
         {
           "id": "literature-300",
           "points": 300,
-          "prompt": "Wer ist der Autor von „Don Quijote“?",
-          "answer": "Miguel de Cervantes.",
-          "jokerOptions": ["Miguel de Cervantes", "Gabriel García Márquez", "Federico García Lorca"]
+          "prompt": "Wie heißt die Maltechnik, bei der Farbpigmente auf noch feuchten Kalkputz aufgetragen werden?",
+          "answer": "Freskomalerei.",
+          "jokerOptions": ["Freskomalerei", "Aquarellmalerei", "Enkaustik"]
         },
         {
           "id": "literature-400",
@@ -89,15 +95,22 @@
         {
           "id": "literature-500",
           "points": 500,
-          "prompt": "Welches mittelhochdeutsche Heldenepos erzählt unter anderem von Siegfried und Kriemhild?",
-          "answer": "Das Nibelungenlied.",
-          "jokerOptions": ["Das Nibelungenlied", "Parzival", "Der arme Heinrich"]
+          "prompt": "Wie heißt der fiktive Ort, an dem Gabriel García Márquez’ Roman „Hundert Jahre Einsamkeit“ spielt?",
+          "answer": "Macondo.",
+          "jokerOptions": ["Macondo", "Comala", "Santa María"]
+        },
+        {
+          "id": "literature-600",
+          "points": 600,
+          "prompt": "Welcher niederländische Maler schuf das Gemälde „Die Nachtwache“?",
+          "answer": "Rembrandt van Rijn.",
+          "jokerOptions": ["Rembrandt van Rijn", "Jan Vermeer", "Peter Paul Rubens"]
         }
       ]
     },
     {
       "id": "history",
-      "title": "History",
+      "title": "Geschichte & Geografie",
       "questions": [
         {
           "id": "history-100",
@@ -116,11 +129,9 @@
         {
           "id": "history-300",
           "points": 300,
-          "prompt": "Welches Ereignis begann 1789 mit dem Sturm auf die Bastille?",
-          "answer": "Die Französische Revolution.",
-          "jokerOptions": ["Die Französische Revolution", "Die Julirevolution", "Die Pariser Kommune"],
-          "image": "images/questions/bastille.svg",
-          "imageAlt": "Eine stilisierte Festung mit französischen Trikolore-Bannern und der Jahreszahl 1789."
+          "prompt": "Welches Land entstand 1964 aus der Vereinigung von Tanganjika und Sansibar?",
+          "answer": "Tansania.",
+          "jokerOptions": ["Tansania", "Kenia", "Mosambik"]
         },
         {
           "id": "history-400",
@@ -132,15 +143,22 @@
         {
           "id": "history-500",
           "points": 500,
-          "prompt": "Wie heißt die Urkunde, die der englische König Johann 1215 in Runnymede besiegelte?",
-          "answer": "Magna Carta.",
-          "jokerOptions": ["Magna Carta", "Bill of Rights", "Domesday Book"]
+          "prompt": "Wie heißt der Vertrag von 843, der das Frankenreich unter den Enkeln Karls des Großen aufteilte?",
+          "answer": "Der Vertrag von Verdun.",
+          "jokerOptions": ["Vertrag von Verdun", "Vertrag von Meerssen", "Vertrag von Troyes"]
+        },
+        {
+          "id": "history-600",
+          "points": 600,
+          "prompt": "Welches Land ist vollständig von Südafrika umschlossen?",
+          "answer": "Lesotho.",
+          "jokerOptions": ["Lesotho", "Eswatini", "Botswana"]
         }
       ]
     },
     {
       "id": "cartoons-comics",
-      "title": "Cartoons & Comics",
+      "title": "Zeichentrick & Comics",
       "questions": [
         {
           "id": "cartoons-100",
@@ -159,16 +177,16 @@
         {
           "id": "cartoons-300",
           "points": 300,
-          "prompt": "Welcher Comic-Cowboy schießt schneller als sein Schatten?",
-          "answer": "Lucky Luke.",
-          "jokerOptions": ["Lucky Luke", "Blueberry", "Yakari"]
+          "prompt": "Wie heißt der Druide, der im Dorf von Asterix den Zaubertrank braut?",
+          "answer": "Miraculix.",
+          "jokerOptions": ["Miraculix", "Majestix", "Methusalix"]
         },
         {
           "id": "cartoons-400",
           "points": 400,
-          "prompt": "Wie heißt der Druide, der im Dorf von Asterix den Zaubertrank braut?",
-          "answer": "Miraculix.",
-          "jokerOptions": ["Miraculix", "Majestix", "Methusalix"]
+          "prompt": "Zu welchem Pokémon entwickelt sich Karpador?",
+          "answer": "Garados.",
+          "jokerOptions": ["Garados", "Lapras", "Dratini"]
         },
         {
           "id": "cartoons-500",
@@ -176,42 +194,47 @@
           "prompt": "Wie heißt der Barkeeper in der Zeichentrickserie „Die Simpsons“?",
           "answer": "Moe Szyslak.",
           "jokerOptions": ["Moe Szyslak", "Ned Flanders", "Barney Gumble"]
+        },
+        {
+          "id": "cartoons-600",
+          "points": 600,
+          "prompt": "Unter welchem Künstlernamen wurde der belgische Schöpfer von „Tim und Struppi“ bekannt?",
+          "answer": "Hergé.",
+          "jokerOptions": ["Hergé", "Franquin", "Peyo"]
         }
       ]
     },
     {
       "id": "sports",
-      "title": "Sports",
+      "title": "Sport",
       "questions": [
         {
           "id": "sports-100",
           "points": 100,
-          "prompt": "Wie viele Spielerinnen oder Spieler einer Fußballmannschaft stehen regulär gleichzeitig auf dem Feld?",
-          "answer": "Elf.",
-          "jokerOptions": ["Elf", "Neun", "Zwölf"]
+          "prompt": "In welcher Sportart wird der Stanley Cup vergeben?",
+          "answer": "Im Eishockey.",
+          "jokerOptions": ["Eishockey", "Basketball", "Baseball"]
         },
         {
           "id": "sports-200",
           "points": 200,
-          "prompt": "In welcher Sportart bedeutet ein „Birdie“, ein Loch mit einem Schlag unter Par zu spielen?",
-          "answer": "Golf.",
-          "jokerOptions": ["Golf", "Cricket", "Baseball"],
-          "image": "images/questions/golf.svg",
-          "imageAlt": "Ein grünes Spielfeld mit Loch, Fahne und einem kleinen weißen Ball."
+          "prompt": "Wie heißt das jährliche Rugbyturnier zwischen England, Frankreich, Irland, Italien, Schottland und Wales?",
+          "answer": "Six Nations.",
+          "jokerOptions": ["Six Nations", "The Rugby Championship", "Champions Cup"]
         },
         {
           "id": "sports-300",
           "points": 300,
-          "prompt": "Wie lang ist die offizielle Marathondistanz?",
-          "answer": "42,195 Kilometer.",
-          "jokerOptions": ["42,195 Kilometer", "40 Kilometer", "45,5 Kilometer"]
+          "prompt": "Welches der vier Grand-Slam-Turniere im Tennis wird auf Sand ausgetragen?",
+          "answer": "Die French Open.",
+          "jokerOptions": ["French Open", "Wimbledon", "US Open"]
         },
         {
           "id": "sports-400",
           "points": 400,
-          "prompt": "Aus wie vielen Disziplinen besteht ein Zehnkampf?",
-          "answer": "Aus zehn Disziplinen.",
-          "jokerOptions": ["Zehn", "Acht", "Zwölf"]
+          "prompt": "Wie heißt der Zielbereich aus konzentrischen Ringen beim Curling?",
+          "answer": "Das Haus, auf Englisch „House“.",
+          "jokerOptions": ["House", "Hack", "Guard"]
         },
         {
           "id": "sports-500",
@@ -219,12 +242,19 @@
           "prompt": "In welcher Leichtathletik-Disziplin wird die Technik „Fosbury-Flop“ eingesetzt?",
           "answer": "Im Hochsprung.",
           "jokerOptions": ["Hochsprung", "Stabhochsprung", "Dreisprung"]
+        },
+        {
+          "id": "sports-600",
+          "points": 600,
+          "prompt": "Welches Land gewann 1930 die erste Fußball-Weltmeisterschaft?",
+          "answer": "Uruguay.",
+          "jokerOptions": ["Uruguay", "Argentinien", "Brasilien"]
         }
       ]
     },
     {
       "id": "technology",
-      "title": "Technology",
+      "title": "Technik",
       "questions": [
         {
           "id": "technology-100",
@@ -236,18 +266,16 @@
         {
           "id": "technology-200",
           "points": 200,
-          "prompt": "Welche Drucktechnik machte Johannes Gutenberg im 15. Jahrhundert in Europa berühmt?",
-          "answer": "Der Buchdruck mit beweglichen Metalllettern.",
-          "jokerOptions": ["Bewegliche Metalllettern", "Lithografie", "Siebdruck"]
+          "prompt": "Welches elektrische Bauteil kann Ladung speichern und besteht vereinfacht aus zwei leitenden Flächen mit einem Isolator dazwischen?",
+          "answer": "Ein Kondensator.",
+          "jokerOptions": ["Kondensator", "Widerstand", "Diode"]
         },
         {
           "id": "technology-300",
           "points": 300,
-          "prompt": "Welche Dezimalzahl stellt die abgebildete Binärzahl dar?",
-          "answer": "Die Dezimalzahl 10.",
-          "jokerOptions": ["10", "8", "12"],
-          "image": "images/questions/binary.svg",
-          "imageAlt": "Die vier Binärziffern eins, null, eins, null."
+          "prompt": "Welches Bauteil einer Kamera regelt durch eine veränderbare Öffnung, wie viel Licht auf den Sensor fällt?",
+          "answer": "Die Blende.",
+          "jokerOptions": ["Blende", "Verschluss", "Sucher"]
         },
         {
           "id": "technology-400",
@@ -262,6 +290,61 @@
           "prompt": "Welche Maschine steuerte bereits um 1800 komplexe Muster mithilfe von Lochkarten?",
           "answer": "Der Jacquardwebstuhl.",
           "jokerOptions": ["Jacquardwebstuhl", "Spinning Jenny", "Dampfhammer"]
+        },
+        {
+          "id": "technology-600",
+          "points": 600,
+          "prompt": "Welches System übersetzt Domainnamen wie „example.org“ in IP-Adressen?",
+          "answer": "Das Domain Name System, kurz DNS.",
+          "jokerOptions": ["DNS", "FTP", "SMTP"]
+        }
+      ]
+    },
+    {
+      "id": "nature-science",
+      "title": "Natur & Wissenschaft",
+      "questions": [
+        {
+          "id": "science-100",
+          "points": 100,
+          "prompt": "Welcher Planet ist der Sonne am nächsten?",
+          "answer": "Merkur.",
+          "jokerOptions": ["Merkur", "Venus", "Mars"]
+        },
+        {
+          "id": "science-200",
+          "points": 200,
+          "prompt": "Welches Gas nehmen Pflanzen bei der Fotosynthese aus der Luft auf?",
+          "answer": "Kohlenstoffdioxid.",
+          "jokerOptions": ["Kohlenstoffdioxid", "Sauerstoff", "Stickstoff"]
+        },
+        {
+          "id": "science-300",
+          "points": 300,
+          "prompt": "Was ist das größte Organ des menschlichen Körpers?",
+          "answer": "Die Haut.",
+          "jokerOptions": ["Die Haut", "Das Herz", "Die Lunge"]
+        },
+        {
+          "id": "science-400",
+          "points": 400,
+          "prompt": "Welches chemische Element trägt das Symbol „W“?",
+          "answer": "Wolfram.",
+          "jokerOptions": ["Wolfram", "Wismut", "Wasserstoff"]
+        },
+        {
+          "id": "science-500",
+          "points": 500,
+          "prompt": "Wie heißt der direkte Übergang eines Stoffes vom festen in den gasförmigen Zustand?",
+          "answer": "Sublimation.",
+          "jokerOptions": ["Sublimation", "Kondensation", "Resublimation"]
+        },
+        {
+          "id": "science-600",
+          "points": 600,
+          "prompt": "Welcher Wissenschaftler entwickelte ein Periodensystem, das Lücken für noch unentdeckte Elemente ließ?",
+          "answer": "Dmitri Mendelejew.",
+          "jokerOptions": ["Dmitri Mendelejew", "Niels Bohr", "Michael Faraday"]
         }
       ]
     }
@@ -269,43 +352,43 @@
   "prizes": [
     {
       "id": "prize-sweet",
-      "requiredPoints": 1500,
-      "title": "Süße Belohnung",
-      "description": "Ein Lieblingssnack für die nächste Pause.",
-      "image": "images/prizes/sweet.svg",
-      "imageAlt": "Eine bunte Geburtstagstorte mit Kerze."
+      "requiredPoints": 2000,
+      "title": "Etwas zum Knobeln",
+      "description": "Ein Rätselheft für knifflige Denkpausen.",
+      "image": "images/prizes/puzzle-book.png",
+      "imageAlt": "Ein buntes Rätselheft mit Labyrinth, Denkspielen und einem Stift."
     },
     {
       "id": "prize-drink",
-      "requiredPoints": 3500,
-      "title": "Getränk nach Wahl",
-      "description": "Ein Wunschgetränk geht aufs Haus.",
-      "image": "images/prizes/drink.svg",
-      "imageAlt": "Ein festliches Getränk mit Strohhalm und Orangenscheibe."
+      "requiredPoints": 4000,
+      "title": "Etwas zum Kuscheln",
+      "description": "Ein Kissen für extra gemütliche Momente.",
+      "image": "images/prizes/colorful-cushion.png",
+      "imageAlt": "Ein weiches, schönes Kissen."
     },
     {
       "id": "prize-surprise",
       "requiredPoints": 6000,
-      "title": "Kleine Überraschung",
-      "description": "Ein geheimnisvolles Geschenk wartet.",
-      "image": "images/prizes/surprise.svg",
-      "imageAlt": "Ein violettes Geschenk mit gelber Schleife."
+      "title": "Etwas zum Erfrischen",
+      "description": "Ein Spaziergang mit anschließenden prickelnden Lieblingsgetränk.",
+      "image": "images/prizes/celebration-drink.png",
+      "imageAlt": "Ein festliches, prickelndes Getränk mit Eis, Strohhalm und Zitrusfrüchten."
     },
     {
       "id": "prize-main",
       "requiredPoints": 8000,
-      "title": "Geburtstags-Hauptpreis",
-      "description": "Das große Finale für echte Quiz-Champions.",
-      "image": "images/prizes/main.svg",
-      "imageAlt": "Ein goldener Pokal mit Konfetti."
+      "title": "Etwas zum Erleben",
+      "description": "Eine Runde Bowling mit ordentlich Schwung.",
+      "image": "images/prizes/bowling.png",
+      "imageAlt": "Eine violette Bowlingkugel trifft drei fröhliche Bowlingpins."
     },
     {
       "id": "prize-crown",
-      "requiredPoints": 9000,
-      "title": "Die Quiz-Krone",
-      "description": "Perfekte Runde – dieser Preis gehört nur echten Legenden.",
-      "image": "images/prizes/crown.svg",
-      "imageAlt": "Eine goldene Krone mit bunten Edelsteinen und Sternen."
+      "requiredPoints": 10000,
+      "title": "Etwas zum Genießen",
+      "description": "Ein genußvoller Abend zusammen mit den Hosts.",
+      "image": "images/prizes/gourmet-carrots.png",
+      "imageAlt": "Drei freundlich lächelnde Gourmetkarotten auf einem Teller unter einer angehobenen Silberglocke."
     }
   ]
 }

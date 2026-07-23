@@ -7,6 +7,7 @@ import {
   score,
   withJokerUse,
   withRevealedPrize,
+  withDailyDoubleQuestion,
   withDisplayedScore,
   withQuestionResult,
   withTimerOverride
@@ -20,7 +21,7 @@ const config: QuizConfig = {
   locale: 'de',
   settings: {
     defaultTimerSeconds: 60,
-    jokerUses: { callFriend: 3, threeOptions: 3, askAudience: 3 }
+    jokerUses: { callFriend: 3, threeOptions: 3 }
   },
   topics: [
     {
@@ -53,6 +54,14 @@ describe('game state', () => {
     expect(adjusted.scoreAdjustment).toBe(525);
     expect(score(config, adjusted)).toBe(725);
     expect(score(config, withQuestionResult(adjusted, 'q-200', 'incorrect'))).toBe(525);
+  });
+
+  it('awards double points to the daily double selected in the admin area', () => {
+    let progress = withDailyDoubleQuestion(createProgress(config.id), 'q-200');
+    progress = withQuestionResult(progress, 'q-200', 'correct');
+
+    expect(baseScore(config, progress)).toBe(400);
+    expect(normalizeProgress(progress, config.id).dailyDoubleQuestionId).toBe('q-200');
   });
 
   it('normalizes invalid or foreign stored data to a fresh game', () => {
