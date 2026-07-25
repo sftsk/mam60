@@ -3,8 +3,8 @@ import { expect, test } from '@playwright/test';
 test('plays a question and persists the score after reload', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Die große Geburtstagsrunde' })).toBeVisible();
-  await expect(page.getByText('Etwas zum Knobeln')).toHaveCount(0);
-  await expect(page.getByText('Geheimer Preis')).toHaveCount(5);
+  await expect(page.getByText('Etwas zum Bewegen')).toHaveCount(0);
+  await expect(page.getByText('Geheimer Preis')).toHaveCount(6);
 
   await page.getByRole('button', { name: 'Essen & Trinken für 100 Punkte' }).click();
   await expect(page.getByRole('heading', { name: /Welche drei Farben/ })).toBeVisible();
@@ -27,12 +27,12 @@ test('admin mode can correct the score and reset the game', async ({ page }) => 
 
   await page.getByLabel('Punktestand festlegen').fill('2600');
   await page.getByLabel('Punktestand festlegen').press('Enter');
-  await page.getByRole('button', { name: 'Freigeschalteter Preis für 2.000 Punkte öffnen' }).click();
+  await page.getByRole('button', { name: 'Freigeschalteter Preis für 1.500 Punkte öffnen' }).click();
   await expect(page.getByRole('heading', { name: 'Du hast einen Preis freigeschaltet!' })).toBeVisible();
-  await expect(page.getByText('Etwas zum Knobeln')).toHaveCount(0);
+  await expect(page.getByText('Etwas zum Bewegen')).toHaveCount(0);
   await page.getByRole('button', { name: 'Preis enthüllen' }).click();
-  await expect(page.getByRole('heading', { name: 'Etwas zum Knobeln' })).toBeVisible();
-  await expect(page.getByRole('img', { name: 'Ein buntes Rätselheft mit Labyrinth, Denkspielen und einem Stift.' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Etwas zum Bewegen' })).toBeVisible();
+  await expect(page.getByRole('img', { name: 'Ein farbenfroher Lautsprecher, aus dem bunte Musiknoten erklingen.' })).toBeVisible();
   await page.getByRole('button', { name: 'Weiterfeiern' }).click();
   await expect(page.getByText('2.600', { exact: true }).first()).toBeVisible();
   await expect(page.locator('.prize-card.unlocked')).toHaveCount(1);

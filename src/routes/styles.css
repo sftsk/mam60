@@ -71,7 +71,7 @@ h1, h2, h3, button, .eyebrow { font-family: ui-rounded, 'Arial Rounded MT Bold',
 .progress-track { height: 9px; margin-top: 7px; overflow: hidden; background: #ede9fe; border-radius: 999px; }
 .progress-track span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #7c3aed, #ff5c8a); transition: width 250ms ease; }
 .all-unlocked { color: #047857; font-weight: 800; margin: 0; }
-.prize-list { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.prize-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .prize-card { width: 100%; display: grid; grid-template-columns: 70px 1fr; gap: 13px; align-items: center; padding: 14px; border: 0; border-radius: 20px; background: #f6f3f8; color: #8e8399; filter: grayscale(0.75); text-align: left; }
 .prize-card.reached { cursor: pointer; }
 .prize-card.reached:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(76,29,149,.13); }

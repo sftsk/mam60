@@ -399,8 +399,24 @@
   ],
   "prizes": [
     {
+      "id": "prize-garden-rock",
+      "requiredPoints": 1500,
+      "title": "Etwas zum Bewegen",
+      "description": "Ein Rocktanzabend im Garten.",
+      "image": "images/prizes/garden-rock-speaker.png",
+      "imageAlt": "Ein farbenfroher Lautsprecher, aus dem bunte Musiknoten erklingen."
+    },
+    {
+      "id": "prize-main",
+      "requiredPoints": 3500,
+      "title": "Etwas zum Erleben",
+      "description": "Eine Runde Bowling mit ordentlich Schwung.",
+      "image": "images/prizes/bowling.png",
+      "imageAlt": "Eine violette Bowlingkugel trifft drei fröhliche Bowlingpins."
+    },
+    {
       "id": "prize-sweet",
-      "requiredPoints": 2000,
+      "requiredPoints": 5500,
       "title": "Etwas zum Knobeln",
       "description": "Ein Rätselheft für knifflige Denkpausen.",
       "image": "images/prizes/puzzle-book.png",
@@ -408,7 +424,7 @@
     },
     {
       "id": "prize-drink",
-      "requiredPoints": 4500,
+      "requiredPoints": 7500,
       "title": "Etwas zum Kuscheln",
       "description": "Ein Kissen für extra gemütliche Momente.",
       "image": "images/prizes/colorful-cushion.png",
@@ -416,19 +432,11 @@
     },
     {
       "id": "prize-surprise",
-      "requiredPoints": 7000,
+      "requiredPoints": 9500,
       "title": "Etwas zum Erfrischen",
       "description": "Ein Spaziergang mit einem prickelnden Lieblingsgetränk zum Abschluss.",
       "image": "images/prizes/celebration-drink.png",
       "imageAlt": "Ein festliches, prickelndes Getränk mit Eis, Strohhalm und Zitrusfrüchten."
-    },
-    {
-      "id": "prize-main",
-      "requiredPoints": 9500,
-      "title": "Etwas zum Erleben",
-      "description": "Eine Runde Bowling mit ordentlich Schwung.",
-      "image": "images/prizes/bowling.png",
-      "imageAlt": "Eine violette Bowlingkugel trifft drei fröhliche Bowlingpins."
     },
     {
       "id": "prize-crown",
