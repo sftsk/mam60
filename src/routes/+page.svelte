@@ -10,7 +10,7 @@
   import QuizBoard from '$lib/components/QuizBoard.svelte';
   import ResultsDialog from '$lib/components/ResultsDialog.svelte';
   import ScoreHeader from '$lib/components/ScoreHeader.svelte';
-  import { loadQuiz, QuizConfigError, resolveMediaUrl } from '$lib/config';
+  import { loadQuiz, QUIZ_CONFIG_PATHS, QuizConfigError, resolveMediaUrl } from '$lib/config';
   import { deleteProgress, loadProgress, saveProgress } from '$lib/database';
   import {
     answeredCount,
@@ -29,10 +29,22 @@
     withQuestionResult
   } from '$lib/game';
   import { playCorrectSound, playDailyDoubleSound, playWrongSound, prepareAudio } from '$lib/sounds';
-  import type { JokerType, QuestionResult, QuizConfig, QuizPrize, QuizProgress, QuizQuestion, QuizTopic } from '$lib/types';
+  import type {
+    JokerType,
+    LoadedQuiz,
+    QuestionResult,
+    QuizConfig,
+    QuizPrize,
+    QuizProgress,
+    QuizQuestion,
+    QuizSetOption,
+    QuizTopic
+  } from '$lib/types';
 
   let config: QuizConfig | null = null;
   let configUrl: URL | null = null;
+  let loadedQuestionSets: LoadedQuiz[] = [];
+  let questionSets: QuizSetOption[] = [];
   let progress: QuizProgress | null = null;
   let selected: { topic: QuizTopic; question: QuizQuestion } | null = null;
   let pendingDailyDouble: { topic: QuizTopic; question: QuizQuestion } | null = null;
@@ -45,6 +57,12 @@
   let correctCelebration: { id: number; points: number } | null = null;
   let activeUnlock: QuizPrize | null = null;
   let soundEnabled = true;
+  let prizesEnabled = true;
+
+  const quizAliases: Record<string, string> = {
+    classic: 'geburtstagsquiz-2026-v2',
+    hard: 'geburtstagsquiz-2026-knifflig'
+  };
 
   $: currentScore = config && progress ? score(config, progress) : 0;
   $: answered = config && progress ? answeredCount(config, progress) : 0;
@@ -52,22 +70,31 @@
   $: activeDailyDoubleId = config && progress ? getDailyDoubleQuestionId(config, progress) : undefined;
 
   onMount(async () => {
-    adminMode = new URLSearchParams(window.location.search).get('admin') === 'true';
-    soundEnabled = window.localStorage.getItem('birthday-quiz-sound') !== 'off';
+    const urlParams = new URLSearchParams(window.location.search);
+    adminMode = readUrlToggle(urlParams.get('admin')) ?? false;
+    soundEnabled =
+      readUrlToggle(urlParams.get('sound')) ??
+      window.localStorage.getItem('birthday-quiz-sound') !== 'off';
+    prizesEnabled =
+      readUrlToggle(urlParams.get('prizes')) ??
+      window.localStorage.getItem('birthday-quiz-prizes') !== 'off';
     try {
-      const url = new URL(asset('/quiz/quiz.json'), window.location.origin);
-      const loaded = await loadQuiz(url);
-      config = loaded.config;
-      configUrl = loaded.configUrl;
-      const empty = createProgress(config.id);
-      try {
-        progress = normalizeProgress(await loadProgress(config.id), config.id);
-      } catch (error) {
-        progress = empty;
-        persistenceAvailable = false;
-        persistenceWarning = error instanceof Error ? error.message : 'Fortschritt kann nicht gespeichert werden.';
-      }
-      showResults = answeredCount(config, progress) === totalQuestions(config);
+      loadedQuestionSets = await Promise.all(
+        QUIZ_CONFIG_PATHS.map((path) => loadQuiz(new URL(asset(path), window.location.origin)))
+      );
+      questionSets = loadedQuestionSets.map(({ config: questionSet }) => ({
+        id: questionSet.id,
+        title: questionSet.title
+      }));
+      const quizParam = urlParams.get('quiz')?.trim();
+      const preferredId = quizParam
+        ? quizAliases[quizParam.toLowerCase()] ?? quizParam
+        : window.localStorage.getItem('birthday-quiz-question-set');
+      const initialSet =
+        loadedQuestionSets.find(({ config: questionSet }) => questionSet.id === preferredId) ??
+        loadedQuestionSets[0];
+      if (!initialSet) throw new Error('Es ist kein Fragenset konfiguriert.');
+      await activateQuestionSet(initialSet);
     } catch (error) {
       if (error instanceof QuizConfigError) {
         loadError = error.problems.join('\n');
@@ -83,17 +110,68 @@
     return configUrl ? resolveMediaUrl(path, configUrl) : undefined;
   }
 
+  function readUrlToggle(value: string | null): boolean | undefined {
+    if (!value) return undefined;
+    if (['1', 'true', 'on', 'yes'].includes(value.toLowerCase())) return true;
+    if (['0', 'false', 'off', 'no'].includes(value.toLowerCase())) return false;
+    return undefined;
+  }
+
+  function setUrlParam(name: string, value: string) {
+    const url = new URL(window.location.href);
+    url.searchParams.set(name, value);
+    window.history.replaceState(window.history.state, '', url);
+  }
+
   function enableAdminMode() {
     if (adminMode) return;
     adminMode = true;
-    const url = new URL(window.location.href);
-    url.searchParams.set('admin', 'true');
-    window.history.replaceState(window.history.state, '', url);
+    setUrlParam('admin', 'true');
   }
 
   function toggleSound() {
     soundEnabled = !soundEnabled;
     window.localStorage.setItem('birthday-quiz-sound', soundEnabled ? 'on' : 'off');
+    setUrlParam('sound', soundEnabled ? 'on' : 'off');
+  }
+
+  function setPrizesEnabled(enabled: boolean) {
+    prizesEnabled = enabled;
+    if (!enabled) activeUnlock = null;
+    window.localStorage.setItem('birthday-quiz-prizes', enabled ? 'on' : 'off');
+    setUrlParam('prizes', enabled ? 'on' : 'off');
+  }
+
+  async function activateQuestionSet(loaded: LoadedQuiz, remember = false) {
+    let nextProgress = createProgress(loaded.config.id);
+    if (persistenceAvailable) {
+      try {
+        nextProgress = normalizeProgress(await loadProgress(loaded.config.id), loaded.config.id);
+      } catch (error) {
+        persistenceAvailable = false;
+        persistenceWarning = error instanceof Error ? error.message : 'Fortschritt kann nicht gespeichert werden.';
+      }
+    }
+
+    config = loaded.config;
+    configUrl = loaded.configUrl;
+    progress = nextProgress;
+    selected = null;
+    pendingDailyDouble = null;
+    activeUnlock = null;
+    correctCelebration = null;
+    showResults = answeredCount(loaded.config, nextProgress) === totalQuestions(loaded.config);
+    if (remember) {
+      window.localStorage.setItem('birthday-quiz-question-set', loaded.config.id);
+      const alias = Object.entries(quizAliases).find(([, id]) => id === loaded.config.id)?.[0];
+      setUrlParam('quiz', alias ?? loaded.config.id);
+    }
+  }
+
+  async function changeQuestionSet(quizId: string) {
+    const loaded = loadedQuestionSets.find(({ config: questionSet }) => questionSet.id === quizId);
+    if (!loaded || loaded.config.id === config?.id) return;
+    await activateQuestionSet(loaded, true);
   }
 
   async function persist(next: QuizProgress) {
@@ -247,22 +325,28 @@
       {/if}
 
       <QuizBoard topics={config.topics} {progress} onSelect={selectQuestion} />
-      <PrizeShelf
-        prizes={config.prizes}
-        score={currentScore}
-        revealedPrizeIds={progress.revealedPrizeIds}
-        imageUrl={media}
-        onSelectPrize={openPrize}
-      />
+      {#if prizesEnabled}
+        <PrizeShelf
+          prizes={config.prizes}
+          score={currentScore}
+          revealedPrizeIds={progress.revealedPrizeIds}
+          imageUrl={media}
+          onSelectPrize={openPrize}
+        />
+      {/if}
 
       {#if adminMode}
         <AdminPanel
           {config}
+          {questionSets}
           {progress}
           {currentScore}
+          {prizesEnabled}
           timerSeconds={progress.timerSecondsOverride ?? config.settings.defaultTimerSeconds}
           dailyDoubleQuestionId={activeDailyDoubleId}
           {persistenceAvailable}
+          onQuestionSetChange={(quizId) => void changeQuestionSet(quizId)}
+          onPrizesEnabledChange={setPrizesEnabled}
           onScoreChange={setScore}
           onTimerChange={setTimer}
           onDailyDoubleChange={setDailyDouble}
@@ -302,12 +386,13 @@
         score={currentScore}
         prizes={config.prizes}
         revealedPrizeIds={progress.revealedPrizeIds}
+        showPrizes={prizesEnabled}
         imageUrl={media}
         onClose={() => (showResults = false)}
       />
     {/if}
 
-    {#if activeUnlock}
+    {#if activeUnlock && prizesEnabled}
       {#key activeUnlock.id}
         <PrizeUnlockDialog
           prize={activeUnlock}

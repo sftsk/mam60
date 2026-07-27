@@ -10,7 +10,6 @@
 <header class="hero">
   <div class="party-mark" data-admin-trigger aria-hidden="true" on:dblclick={onAdminActivate}>✦</div>
   <div class="hero-copy">
-    <p class="eyebrow">Das Geburtstagsquiz</p>
     <h1>{title}</h1>
     {#if subtitle}<p class="subtitle">{subtitle}</p>{/if}
   </div>

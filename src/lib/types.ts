@@ -4,6 +4,7 @@ export type JokerType = 'callFriend' | 'threeOptions' | 'askAudience';
 export interface JokerLimits {
   callFriend: number;
   threeOptions: number;
+  askAudience: number;
 }
 
 export interface QuizSettings {
@@ -64,4 +65,9 @@ export interface QuizProgress {
 export interface LoadedQuiz {
   config: QuizConfig;
   configUrl: URL;
+}
+
+export interface QuizSetOption {
+  id: string;
+  title: string;
 }

@@ -36,7 +36,7 @@
   $: remainingJokers = {
     callFriend: Math.max(0, jokerLimits.callFriend - Math.max(jokerUses.callFriend, initialJokerUses.callFriend + localJokerUses.callFriend)),
     threeOptions: Math.max(0, jokerLimits.threeOptions - Math.max(jokerUses.threeOptions, initialJokerUses.threeOptions + localJokerUses.threeOptions)),
-    askAudience: Number.POSITIVE_INFINITY
+    askAudience: Math.max(0, jokerLimits.askAudience - Math.max(jokerUses.askAudience, initialJokerUses.askAudience + localJokerUses.askAudience))
   };
 
   onMount(() => {
@@ -95,7 +95,7 @@
     timedOut = false;
     lastTickBucket = Math.floor(remainingMs / 1000);
     musicStep = 0;
-    if (joker === 'threeOptions' || joker === 'askAudience') showOptions = true;
+    if (joker === 'threeOptions') showOptions = true;
     activeJoker = joker === 'callFriend' ? joker : null;
     timerPaused = joker === 'callFriend';
     lastTimestamp = performance.now();
@@ -177,8 +177,8 @@
         <button type="button" disabled={remainingJokers.threeOptions === 0} on:click={() => useJoker('threeOptions')}>
           <span aria-hidden="true">≡</span><strong>3 Antworten</strong><small>{remainingJokers.threeOptions} übrig</small>
         </button>
-        <button type="button" on:click={() => useJoker('askAudience')}>
-          <span aria-hidden="true">♟</span><strong>Publikum</strong><small>99+ übrig</small>
+        <button type="button" disabled={remainingJokers.askAudience === 0} on:click={() => useJoker('askAudience')}>
+          <span aria-hidden="true">♟</span><strong>Publikum</strong><small>{remainingJokers.askAudience} übrig</small>
         </button>
       </div>
       <button type="button" class="primary-button reveal-button" on:click={revealAnswer}>

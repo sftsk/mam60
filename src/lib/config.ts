@@ -1,5 +1,7 @@
 import type { JokerLimits, LoadedQuiz, QuizConfig, QuizPrize, QuizQuestion, QuizSettings, QuizTopic } from './types';
 
+export const QUIZ_CONFIG_PATHS = ['/quiz/quiz.json', '/quiz/quiz-hard.json'] as const;
+
 export class QuizConfigError extends Error {
   constructor(public readonly problems: string[]) {
     super(`Die Quiz-Konfiguration ist ungültig:\n${problems.join('\n')}`);
@@ -64,7 +66,7 @@ function readRangedInteger(
 function parseSettings(value: unknown, problems: string[]): QuizSettings {
   const defaults: QuizSettings = {
     defaultTimerSeconds: 60,
-    jokerUses: { callFriend: 3, threeOptions: 3 },
+    jokerUses: { callFriend: 3, threeOptions: 3, askAudience: 3 },
     dailyDoubleQuestionId: undefined
   };
   if (value === undefined) return defaults;
@@ -80,7 +82,8 @@ function parseSettings(value: unknown, problems: string[]): QuizSettings {
     } else {
       jokerUses = {
         callFriend: readRangedInteger(jokerValue, 'callFriend', 'settings.jokerUses', problems, 3, 0, 20) ?? 3,
-        threeOptions: readRangedInteger(jokerValue, 'threeOptions', 'settings.jokerUses', problems, 3, 0, 20) ?? 3
+        threeOptions: readRangedInteger(jokerValue, 'threeOptions', 'settings.jokerUses', problems, 3, 0, 20) ?? 3,
+        askAudience: readRangedInteger(jokerValue, 'askAudience', 'settings.jokerUses', problems, 3, 0, 20) ?? 3
       };
     }
   }

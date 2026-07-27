@@ -48,28 +48,82 @@ test('answer and audience jokers restart the timer immediately and persist their
   await expect(page.getByRole('timer')).toHaveAttribute('aria-label', /Sekunden verbleiben/);
   await page.waitForTimeout(2100);
 
+  await expect(page.getByRole('button', { name: /Publikum/ })).toContainText('3 übrig');
+  await page.getByRole('button', { name: /Publikum/ }).click();
+  await expect(page.getByRole('dialog', { name: 'Joker aktiv' })).toHaveCount(0);
+  await expect(page.getByRole('timer')).toHaveAttribute('aria-label', /(?:59|60) Sekunden verbleiben/);
+  await expect(page.getByLabel('Antwortmöglichkeiten')).toHaveCount(0);
+  await expect(page.getByRole('button', { name: /Publikum/ })).toContainText('2 übrig');
+
   await page.getByRole('button', { name: /3 Antworten/ }).click();
   await expect(page.getByRole('dialog', { name: 'Joker aktiv' })).toHaveCount(0);
   await expect(page.getByRole('timer')).toHaveAttribute('aria-label', /(?:59|60) Sekunden verbleiben/);
   await expect(page.getByLabel('Antwortmöglichkeiten')).toContainText('Tomate, Mozzarella, Basilikum');
   await expect(page.getByRole('button', { name: /3 Antworten/ })).toContainText('2 übrig');
 
-  await expect(page.getByRole('button', { name: /Publikum/ })).toContainText('99+ übrig');
-  await page.getByRole('button', { name: /Publikum/ }).click();
-  await expect(page.getByRole('dialog', { name: 'Joker aktiv' })).toHaveCount(0);
-  await expect(page.getByRole('timer')).toHaveAttribute('aria-label', /(?:59|60) Sekunden verbleiben/);
-  await expect(page.getByRole('button', { name: /Publikum/ })).toContainText('99+ übrig');
-
   await page.getByRole('button', { name: 'Frage schließen' }).click();
   await page.reload();
   await page.getByRole('button', { name: 'Essen & Trinken für 100 Punkte' }).click();
   await expect(page.getByRole('button', { name: /3 Antworten/ })).toContainText('2 übrig');
-  await expect(page.getByRole('button', { name: /Publikum/ })).toContainText('99+ übrig');
+  const audienceJoker = page.getByRole('button', { name: /Publikum/ });
+  await expect(audienceJoker).toContainText('2 übrig');
+  await audienceJoker.click();
+  await audienceJoker.click();
+  await expect(audienceJoker).toContainText('0 übrig');
+  await expect(audienceJoker).toBeDisabled();
+  await expect(page.getByLabel('Antwortmöglichkeiten')).toHaveCount(0);
 
   await page.getByRole('button', { name: 'Frage schließen' }).click();
   await page.goto('/?admin=true');
   await page.getByText('Admin-Werkzeuge').click();
-  await expect(page.getByText('Publikum: 1× genutzt')).toBeVisible();
+  await expect(page.getByText('Publikum: 3/3')).toBeVisible();
+});
+
+test('admin can switch question sets and the selected set supplies the title', async ({ page }) => {
+  await page.goto('/?admin=true');
+  await page.getByText('Admin-Werkzeuge').click();
+
+  await expect(page.getByRole('heading', { name: 'Die große Geburtstagsrunde' })).toBeVisible();
+  await page.getByLabel('Fragenset').selectOption({ label: 'Das Geburtstagsquiz' });
+  await expect(page.getByRole('heading', { name: 'Das Geburtstagsquiz' })).toBeVisible();
+  await expect(page).toHaveTitle('Das Geburtstagsquiz');
+  await expect(page).toHaveURL(/quiz=hard/);
+  await expect(page.getByRole('heading', { name: 'Sprache & Kurioses', level: 2 })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Zeichentrick & Comics' })).toHaveCount(0);
+
+  await page.reload();
+  await expect(page.getByRole('heading', { name: 'Das Geburtstagsquiz' })).toBeVisible();
+});
+
+test('admin can persistently hide and restore every prize surface', async ({ page }) => {
+  await page.goto('/?admin=true');
+  await page.getByText('Admin-Werkzeuge').click();
+  const prizeToggle = page.getByLabel('Preise anzeigen');
+
+  await expect(page.locator('.prize-section')).toBeVisible();
+  await prizeToggle.uncheck();
+  await expect(page.locator('.prize-section')).toHaveCount(0);
+  await expect(page).toHaveURL(/prizes=off/);
+
+  await page.reload();
+  await expect(page.locator('.prize-section')).toHaveCount(0);
+  await page.getByText('Admin-Werkzeuge').click();
+  await page.getByLabel('Preise anzeigen').check();
+  await expect(page.locator('.prize-section')).toBeVisible();
+});
+
+test('URL parameters configure the question set, prize mode, sound, and admin access', async ({ page }) => {
+  await page.goto('/?quiz=hard&prizes=off&sound=off&admin=true');
+
+  await expect(page.getByRole('heading', { name: 'Das Geburtstagsquiz' })).toBeVisible();
+  await expect(page.getByText('Admin-Werkzeuge')).toBeVisible();
+  await expect(page.locator('.prize-section')).toHaveCount(0);
+
+  await page.getByRole('button', { name: 'Essen & Trinken für 100 Punkte' }).click();
+  const soundToggle = page.getByRole('button', { name: 'Töne einschalten' });
+  await expect(soundToggle).toBeVisible();
+  await soundToggle.click();
+  await expect(page).toHaveURL(/sound=on/);
 });
 
 test('admin can override and persist the question timer', async ({ page }) => {
@@ -77,6 +131,7 @@ test('admin can override and persist the question timer', async ({ page }) => {
   await page.getByText('Admin-Werkzeuge').click();
   await page.getByLabel('Zeit pro Frage').fill('12');
   await page.getByLabel('Zeit pro Frage').press('Enter');
+  await page.waitForTimeout(200);
   await page.reload();
 
   await page.getByRole('button', { name: 'Essen & Trinken für 100 Punkte' }).click();

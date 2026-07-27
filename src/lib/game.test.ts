@@ -21,7 +21,7 @@ const config: QuizConfig = {
   locale: 'de',
   settings: {
     defaultTimerSeconds: 60,
-    jokerUses: { callFriend: 3, threeOptions: 3 }
+    jokerUses: { callFriend: 3, threeOptions: 3, askAudience: 3 }
   },
   topics: [
     {

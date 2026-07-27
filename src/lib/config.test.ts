@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import harderQuestionSet from '../../static/quiz/quiz-hard.json';
+import originalQuestionSet from '../../static/quiz/quiz.json';
 import { parseQuizConfig, QuizConfigError, resolveMediaUrl } from './config';
 
 const valid = {
@@ -9,7 +11,7 @@ const valid = {
   settings: {
     defaultTimerSeconds: 60,
     dailyDoubleQuestionId: 'q1',
-    jokerUses: { callFriend: 3, threeOptions: 3 }
+    jokerUses: { callFriend: 3, threeOptions: 3, askAudience: 3 }
   },
   topics: [
     {
@@ -26,7 +28,7 @@ describe('quiz config', () => {
     const result = parseQuizConfig(valid);
     expect(result.topics[0].questions[0].points).toBe(100);
     expect(result.settings.defaultTimerSeconds).toBe(60);
-    expect(result.settings.jokerUses).toEqual({ callFriend: 3, threeOptions: 3 });
+    expect(result.settings.jokerUses).toEqual({ callFriend: 3, threeOptions: 3, askAudience: 3 });
     expect(result.settings.dailyDoubleQuestionId).toBe('q1');
   });
 
@@ -55,5 +57,19 @@ describe('quiz config', () => {
     expect(resolveMediaUrl('images/example.svg', new URL('https://example.test/repo/quiz/quiz.json'))).toBe(
       'https://example.test/repo/quiz/images/example.svg'
     );
+  });
+
+  it('keeps both bundled question sets valid, distinct, and complete', () => {
+    const original = parseQuizConfig(originalQuestionSet);
+    const harder = parseQuizConfig(harderQuestionSet);
+    const originalPrompts = new Set(original.topics.flatMap((topic) => topic.questions.map((question) => question.prompt)));
+    const harderPrompts = harder.topics.flatMap((topic) => topic.questions.map((question) => question.prompt));
+
+    expect(original.id).not.toBe(harder.id);
+    expect(harder.title).toBe('Das Geburtstagsquiz');
+    expect(harder.topics).toHaveLength(8);
+    expect(harderPrompts).toHaveLength(48);
+    expect(harder.topics.some((topic) => /Zeichentrick|Comic/i.test(topic.title))).toBe(false);
+    expect(harderPrompts.every((prompt) => !originalPrompts.has(prompt))).toBe(true);
   });
 });

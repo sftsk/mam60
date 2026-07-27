@@ -20,7 +20,7 @@ Die gebaute Anwendung liegt in `build/`. Sie muss über einen HTTP-Server ausgel
 
 ## Quiz anpassen
 
-Die Quelldaten stehen in [`static/quiz/quiz.json`](static/quiz/quiz.json). Bilder liegen darunter in `static/quiz/images/` und werden relativ zur JSON-Datei angegeben:
+Die mitgelieferten Fragensets stehen in [`static/quiz/quiz.json`](static/quiz/quiz.json) und [`static/quiz/quiz-hard.json`](static/quiz/quiz-hard.json). Bilder liegen darunter in `static/quiz/images/` und werden relativ zur jeweiligen JSON-Datei angegeben:
 
 ```json
 {
@@ -43,7 +43,7 @@ Wichtige Regeln:
 - Alle Themen-, Fragen- und Preis-IDs müssen innerhalb eines Quiz eindeutig sein.
 - Punktwerte und Preisschwellen sind nicht-negative ganze Zahlen.
 - `settings.defaultTimerSeconds` legt die allgemeine Fragezeit fest; Standard sind 60 Sekunden. Eine Frage kann sie optional mit `timerSeconds` überschreiben.
-- `settings.jokerUses` konfiguriert die verfügbaren Telefon- und Drei-Antworten-Joker. Der Publikumsjoker ist unbegrenzt verfügbar; seine Nutzung wird trotzdem gezählt. Jede Frage braucht dafür genau drei unterschiedliche `jokerOptions`.
+- `settings.jokerUses` konfiguriert die verfügbaren Telefon-, Drei-Antworten- und Publikumsjoker. Jeder Typ ist separat begrenzt; die mitgelieferten Sets erlauben jeweils drei Einsätze. Jede Frage braucht für den Drei-Antworten-Joker genau drei unterschiedliche `jokerOptions`.
 - `settings.dailyDoubleQuestionId` legt das anfängliche Tagesdoppel fest. Im Adminbereich kann es vor dem Öffnen auf eine andere unbeantwortete Frage verschoben werden; eine richtige Antwort zählt doppelt.
 - Jedes konfigurierte Bild braucht einen beschreibenden `imageAlt`-Text.
 - Die Oberfläche unterstützt beliebig viele Themen und Fragen; das mitgelieferte Set umfasst acht Themen mit jeweils sechs Fragen.
@@ -56,6 +56,15 @@ Eine Frage startet mit einem animierten Countdown. Eine sanfte, synthetisierte C
 Die Lösung wird von der moderierenden Person als **Richtig** oder **Falsch** bewertet. Nur richtige Antworten erhöhen den Punktestand und lösen einen kurzen Konfetti-Effekt aus. Titel, Beschreibung und Bild eines Preises bleiben bis zur jeweiligen Punkteschwelle geheim. Danach wird seine Karte anklickbar und öffnet den Preisdialog; erst der Button **Preis enthüllen** startet einen hörbaren Trommelwirbel samt Schüttelanimation. Beim Aufdecken ertönt eine kurze Fanfare und der Preis bleibt dauerhaft sichtbar. Bereits enthüllte Preise lassen sich über ihre Karte erneut im Dialog ansehen.
 
 Mit einem Doppelklick auf das gelbe Sternsymbol oder dem URL-Parameter `?admin=true` erscheint ein lokaler Korrekturbereich. Dort lassen sich Punktestand, Standard-Fragezeit und Fragenstatus korrigieren oder der gesamte Fortschritt nach Bestätigung löschen. Der versteckte Auslöser und der Parameter sind kein Zugriffsschutz.
+
+Die Startkonfiguration lässt sich über URL-Parameter teilen. URL-Werte haben Vorrang vor den zuletzt im Browser gespeicherten Einstellungen:
+
+- `quiz=classic` oder `quiz=hard` wählt das Fragenset; alternativ funktioniert dessen vollständige Quiz-ID.
+- `prizes=on|off` zeigt oder verbirgt alle Preisflächen.
+- `sound=on|off` schaltet die Töne ein oder aus.
+- `admin=true` öffnet den Adminmodus.
+
+Beispiel: `?quiz=hard&prizes=off&sound=off&admin=true`
 
 ## Qualitätssicherung
 

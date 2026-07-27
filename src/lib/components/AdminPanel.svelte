@@ -1,13 +1,17 @@
 <script lang="ts">
   import { questionResult } from '$lib/game';
-  import type { QuestionResult, QuizConfig, QuizProgress } from '$lib/types';
+  import type { QuestionResult, QuizConfig, QuizProgress, QuizSetOption } from '$lib/types';
 
   export let config: QuizConfig;
+  export let questionSets: QuizSetOption[];
   export let progress: QuizProgress;
   export let currentScore: number;
   export let persistenceAvailable: boolean;
+  export let prizesEnabled: boolean;
   export let timerSeconds: number;
   export let dailyDoubleQuestionId: string | undefined;
+  export let onQuestionSetChange: (quizId: string) => void;
+  export let onPrizesEnabledChange: (enabled: boolean) => void;
   export let onScoreChange: (score: number) => void;
   export let onTimerChange: (seconds: number) => void;
   export let onDailyDoubleChange: (questionId: string) => void;
@@ -26,11 +30,42 @@
   function changeDailyDouble(event: Event) {
     onDailyDoubleChange((event.currentTarget as HTMLSelectElement).value);
   }
+
+  function changeQuestionSet(event: Event) {
+    onQuestionSetChange((event.currentTarget as HTMLSelectElement).value);
+  }
 </script>
 
 <details class="admin-panel">
   <summary>Admin-Werkzeuge</summary>
   <div class="admin-content">
+    <div class="admin-mode-grid">
+      <label class="admin-setting" for="admin-question-set">
+        <span>
+          <strong>Fragenset</strong>
+          <small>Jedes Set behält seinen eigenen Spielstand.</small>
+        </span>
+        <select id="admin-question-set" value={config.id} on:change={changeQuestionSet}>
+          {#each questionSets as questionSet (questionSet.id)}
+            <option value={questionSet.id}>{questionSet.title}</option>
+          {/each}
+        </select>
+      </label>
+
+      <label class="admin-setting admin-toggle" for="admin-prizes-enabled">
+        <span>
+          <strong>Preise anzeigen</strong>
+          <small>Ohne Preise bleiben Quizbrett und Punktestand unverändert.</small>
+        </span>
+        <input
+          id="admin-prizes-enabled"
+          type="checkbox"
+          checked={prizesEnabled}
+          on:change={(event) => onPrizesEnabledChange((event.currentTarget as HTMLInputElement).checked)}
+        />
+      </label>
+    </div>
+
     <form class="score-editor" on:submit|preventDefault={() => onScoreChange(scoreInput)}>
       <label for="admin-score">Punktestand festlegen</label>
       <input id="admin-score" type="number" min="0" step="1" bind:value={scoreInput} />
@@ -67,7 +102,7 @@
       <strong>Joker-Verbrauch</strong>
       <span>Telefon: {progress.jokerUses.callFriend}/{config.settings.jokerUses.callFriend}</span>
       <span>3 Antworten: {progress.jokerUses.threeOptions}/{config.settings.jokerUses.threeOptions}</span>
-      <span>Publikum: {progress.jokerUses.askAudience}× genutzt</span>
+      <span>Publikum: {progress.jokerUses.askAudience}/{config.settings.jokerUses.askAudience}</span>
     </div>
 
     <div class="question-editor">

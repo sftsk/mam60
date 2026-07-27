@@ -1,0 +1,452 @@
+{
+  "schemaVersion": 1,
+  "id": "geburtstagsquiz-2026-knifflig",
+  "title": "Das Geburtstagsquiz",
+  "subtitle": "Die etwas kniffligere Runde",
+  "locale": "de",
+  "settings": {
+    "defaultTimerSeconds": 60,
+    "dailyDoubleQuestionId": "science-hard-500",
+    "jokerUses": {
+      "callFriend": 3,
+      "threeOptions": 3,
+      "askAudience": 3
+    }
+  },
+  "topics": [
+    {
+      "id": "food-hard",
+      "title": "Essen & Trinken",
+      "questions": [
+        {
+          "id": "food-hard-100",
+          "points": 100,
+          "prompt": "Welches Gewürz verleiht einem klassischen Risotto alla milanese seine goldgelbe Farbe?",
+          "answer": "Safran.",
+          "jokerOptions": ["Safran", "Kurkuma", "Paprikapulver"]
+        },
+        {
+          "id": "food-hard-200",
+          "points": 200,
+          "prompt": "Welche französische Grundsoße wird aus einer hellen Mehlschwitze und Milch zubereitet?",
+          "answer": "Béchamelsoße.",
+          "jokerOptions": ["Béchamel", "Velouté", "Hollandaise"]
+        },
+        {
+          "id": "food-hard-300",
+          "points": 300,
+          "prompt": "Aus welcher Frucht wird die Spirituose Calvados traditionell gebrannt?",
+          "answer": "Aus Äpfeln, teilweise ergänzt durch Birnen.",
+          "jokerOptions": ["Äpfeln", "Pflaumen", "Quitten"]
+        },
+        {
+          "id": "food-hard-400",
+          "points": 400,
+          "prompt": "Wie heißt die japanische Würzpaste aus fermentierten Sojabohnen, Salz und meist Reis oder Gerste?",
+          "answer": "Miso.",
+          "jokerOptions": ["Miso", "Mirin", "Dashi"]
+        },
+        {
+          "id": "food-hard-500",
+          "points": 500,
+          "prompt": "Welche Rebsorte ist die wichtigste Grundlage für den Rotwein Chianti Classico?",
+          "answer": "Sangiovese.",
+          "jokerOptions": ["Sangiovese", "Nebbiolo", "Montepulciano"]
+        },
+        {
+          "id": "food-hard-600",
+          "points": 600,
+          "prompt": "Wie heißt die Bräunungsreaktion zwischen Aminosäuren und reduzierenden Zuckern, die beim Rösten viele Aromen erzeugt?",
+          "answer": "Maillard-Reaktion.",
+          "jokerOptions": ["Maillard-Reaktion", "Karamellisierung", "Fermentation"]
+        }
+      ]
+    },
+    {
+      "id": "arts-hard",
+      "title": "Kunst & Literatur",
+      "questions": [
+        {
+          "id": "arts-hard-100",
+          "points": 100,
+          "prompt": "Wer schrieb den dystopischen Roman „1984“?",
+          "answer": "George Orwell.",
+          "jokerOptions": ["George Orwell", "Aldous Huxley", "Ray Bradbury"]
+        },
+        {
+          "id": "arts-hard-200",
+          "points": 200,
+          "prompt": "Welcher österreichische Künstler malte das goldschimmernde Gemälde „Der Kuss“?",
+          "answer": "Gustav Klimt.",
+          "jokerOptions": ["Gustav Klimt", "Egon Schiele", "Oskar Kokoschka"]
+        },
+        {
+          "id": "arts-hard-300",
+          "points": 300,
+          "prompt": "Wie nennt man einen Erzählbeginn mitten im laufenden Geschehen?",
+          "answer": "In medias res.",
+          "jokerOptions": ["In medias res", "Deus ex machina", "Exposition"]
+        },
+        {
+          "id": "arts-hard-400",
+          "points": 400,
+          "prompt": "Von welchem Schriftsteller stammt der Gesellschaftsroman „Effi Briest“?",
+          "answer": "Theodor Fontane.",
+          "jokerOptions": ["Theodor Fontane", "Thomas Mann", "Gottfried Keller"]
+        },
+        {
+          "id": "arts-hard-500",
+          "points": 500,
+          "prompt": "Welcher spanische Hofmaler schuf das rätselhafte Gruppenporträt „Las Meninas“?",
+          "answer": "Diego Velázquez.",
+          "jokerOptions": ["Diego Velázquez", "Francisco de Goya", "El Greco"]
+        },
+        {
+          "id": "arts-hard-600",
+          "points": 600,
+          "prompt": "Wer verfasste den unvollendeten Roman „Der Mann ohne Eigenschaften“?",
+          "answer": "Robert Musil.",
+          "jokerOptions": ["Robert Musil", "Hermann Broch", "Stefan Zweig"]
+        }
+      ]
+    },
+    {
+      "id": "history-hard",
+      "title": "Geschichte & Geografie",
+      "questions": [
+        {
+          "id": "history-hard-100",
+          "points": 100,
+          "prompt": "Wie heißt die Hauptstadt Sloweniens?",
+          "answer": "Ljubljana.",
+          "jokerOptions": ["Ljubljana", "Bratislava", "Zagreb"]
+        },
+        {
+          "id": "history-hard-200",
+          "points": 200,
+          "prompt": "Welcher Fluss teilt Budapest in die Stadtteile Buda und Pest?",
+          "answer": "Die Donau.",
+          "jokerOptions": ["Donau", "Theiß", "Drau"]
+        },
+        {
+          "id": "history-hard-300",
+          "points": 300,
+          "prompt": "Welche Verträge von 1957 begründeten unter anderem die Europäische Wirtschaftsgemeinschaft?",
+          "answer": "Die Römischen Verträge.",
+          "jokerOptions": ["Römische Verträge", "Verträge von Maastricht", "Pariser Verträge"]
+        },
+        {
+          "id": "history-hard-400",
+          "points": 400,
+          "prompt": "In welcher Schlacht des Jahres 1066 setzte sich Wilhelm der Eroberer in England durch?",
+          "answer": "In der Schlacht von Hastings.",
+          "jokerOptions": ["Hastings", "Bosworth", "Azincourt"]
+        },
+        {
+          "id": "history-hard-500",
+          "points": 500,
+          "prompt": "Welche Meerenge trennt die asiatische Türkei vom europäischen Teil des Landes und verbindet Schwarzes Meer und Marmarameer?",
+          "answer": "Der Bosporus.",
+          "jokerOptions": ["Bosporus", "Dardanellen", "Straße von Kertsch"]
+        },
+        {
+          "id": "history-hard-600",
+          "points": 600,
+          "prompt": "Welcher Religionsfrieden von 1555 prägte den Grundsatz „Cuius regio, eius religio“?",
+          "answer": "Der Augsburger Religionsfrieden.",
+          "jokerOptions": ["Augsburger Religionsfrieden", "Prager Frieden", "Friede von Münster"]
+        }
+      ]
+    },
+    {
+      "id": "sports-hard",
+      "title": "Sport",
+      "questions": [
+        {
+          "id": "sports-hard-100",
+          "points": 100,
+          "prompt": "Wie viele Spieler einer Handballmannschaft stehen einschließlich Torwart gleichzeitig auf dem Feld?",
+          "answer": "Sieben.",
+          "jokerOptions": ["Sieben", "Sechs", "Acht"]
+        },
+        {
+          "id": "sports-hard-200",
+          "points": 200,
+          "prompt": "Wie hoch ist ein reguläres Maximum Break im Snooker?",
+          "answer": "147 Punkte.",
+          "jokerOptions": ["147", "155", "180"]
+        },
+        {
+          "id": "sports-hard-300",
+          "points": 300,
+          "prompt": "Was markiert die rote Flamme, die „Flamme rouge“, bei einem Straßenradrennen?",
+          "answer": "Den Beginn des letzten Kilometers bis zum Ziel.",
+          "jokerOptions": ["Den letzten Kilometer", "Die letzte Bergwertung", "Die Verpflegungszone"]
+        },
+        {
+          "id": "sports-hard-400",
+          "points": 400,
+          "prompt": "Bei welcher Fechtwaffe zählt der gesamte Körper als gültige Trefferfläche?",
+          "answer": "Beim Degen.",
+          "jokerOptions": ["Degen", "Florett", "Säbel"]
+        },
+        {
+          "id": "sports-hard-500",
+          "points": 500,
+          "prompt": "Nach welchem tschechoslowakischen Fußballer ist ein frech in die Tormitte gelupfter Elfmeter benannt?",
+          "answer": "Antonín Panenka.",
+          "jokerOptions": ["Antonín Panenka", "Josef Masopust", "Pavel Nedvěd"]
+        },
+        {
+          "id": "sports-hard-600",
+          "points": 600,
+          "prompt": "In welcher Sportart wird seit 1851 um den America’s Cup gekämpft?",
+          "answer": "Im Segeln.",
+          "jokerOptions": ["Segeln", "Rudern", "Polo"]
+        }
+      ]
+    },
+    {
+      "id": "technology-hard",
+      "title": "Technik",
+      "questions": [
+        {
+          "id": "technology-hard-100",
+          "points": 100,
+          "prompt": "In welcher Einheit wird der elektrische Widerstand gemessen?",
+          "answer": "In Ohm.",
+          "jokerOptions": ["Ohm", "Volt", "Watt"]
+        },
+        {
+          "id": "technology-hard-200",
+          "points": 200,
+          "prompt": "Welches Suchverfahren halbiert bei jedem Schritt einen bereits sortierten Suchbereich?",
+          "answer": "Die binäre Suche.",
+          "jokerOptions": ["Binäre Suche", "Lineare Suche", "Breitensuche"]
+        },
+        {
+          "id": "technology-hard-300",
+          "points": 300,
+          "prompt": "Wofür steht die Abkürzung LED auf Deutsch?",
+          "answer": "Für Leuchtdiode, englisch Light Emitting Diode.",
+          "jokerOptions": ["Leuchtdiode", "Licht-Energie-Detektor", "Lineares Elektronikdisplay"]
+        },
+        {
+          "id": "technology-hard-400",
+          "points": 400,
+          "prompt": "Welcher flüchtige Computerspeicher verliert seinen Inhalt normalerweise beim Ausschalten?",
+          "answer": "Der Arbeitsspeicher, also RAM.",
+          "jokerOptions": ["RAM", "SSD", "ROM"]
+        },
+        {
+          "id": "technology-hard-500",
+          "points": 500,
+          "prompt": "Wie heißt die Eigenschaft eines Systems, trotz Ausfall einzelner Komponenten weiterzuarbeiten?",
+          "answer": "Fehlertoleranz.",
+          "jokerOptions": ["Fehlertoleranz", "Latenz", "Abwärtskompatibilität"]
+        },
+        {
+          "id": "technology-hard-600",
+          "points": 600,
+          "prompt": "Welches Fehlerkorrekturverfahren hilft QR-Codes, trotz beschädigter Bereiche lesbar zu bleiben?",
+          "answer": "Reed-Solomon-Fehlerkorrektur.",
+          "jokerOptions": ["Reed-Solomon-Code", "Huffman-Codierung", "Diffie-Hellman-Verfahren"]
+        }
+      ]
+    },
+    {
+      "id": "science-hard",
+      "title": "Natur & Wissenschaft",
+      "questions": [
+        {
+          "id": "science-hard-100",
+          "points": 100,
+          "prompt": "Welche Säugetiergruppe beherrscht als einzige den aktiven Schlagflug?",
+          "answer": "Die Fledertiere, also Fledermäuse und Flughunde.",
+          "jokerOptions": ["Fledertiere", "Gleithörnchen", "Riesengleiter"]
+        },
+        {
+          "id": "science-hard-200",
+          "points": 200,
+          "prompt": "Welche Skala ordnet Mineralien nach ihrer Ritzhärte?",
+          "answer": "Die Mohs-Skala.",
+          "jokerOptions": ["Mohs-Skala", "Richter-Skala", "Beaufort-Skala"]
+        },
+        {
+          "id": "science-hard-300",
+          "points": 300,
+          "prompt": "Welche Blutgefäße transportieren Blut grundsätzlich vom Herzen weg?",
+          "answer": "Arterien.",
+          "jokerOptions": ["Arterien", "Venen", "Kapillaren"]
+        },
+        {
+          "id": "science-hard-400",
+          "points": 400,
+          "prompt": "Welches chemische Element besitzt die Ordnungszahl 26?",
+          "answer": "Eisen.",
+          "jokerOptions": ["Eisen", "Kupfer", "Nickel"]
+        },
+        {
+          "id": "science-hard-500",
+          "points": 500,
+          "prompt": "In welchen Zellorganellen läuft der größte Teil der aeroben Zellatmung ab?",
+          "answer": "In den Mitochondrien.",
+          "jokerOptions": ["Mitochondrien", "Ribosomen", "Lysosomen"]
+        },
+        {
+          "id": "science-hard-600",
+          "points": 600,
+          "prompt": "Wie heißt die Grenzentfernung, innerhalb der ein Himmelskörper durch Gezeitenkräfte auseinanderbrechen kann?",
+          "answer": "Roche-Grenze.",
+          "jokerOptions": ["Roche-Grenze", "Chandrasekhar-Grenze", "Heliopause"]
+        }
+      ]
+    },
+    {
+      "id": "music-hard",
+      "title": "Musik & Unterhaltung",
+      "questions": [
+        {
+          "id": "music-hard-100",
+          "points": 100,
+          "prompt": "Welcher Komponist schrieb den Konzertzyklus „Die vier Jahreszeiten“?",
+          "answer": "Antonio Vivaldi.",
+          "jokerOptions": ["Antonio Vivaldi", "Georg Friedrich Händel", "Johann Sebastian Bach"]
+        },
+        {
+          "id": "music-hard-200",
+          "points": 200,
+          "prompt": "Welcher Regisseur drehte den Film „Grand Budapest Hotel“?",
+          "answer": "Wes Anderson.",
+          "jokerOptions": ["Wes Anderson", "Tim Burton", "Sofia Coppola"]
+        },
+        {
+          "id": "music-hard-300",
+          "points": 300,
+          "prompt": "Wie heißt das musikalische Intervall zwischen einem Ton und dem nächsten gleichnamigen Ton?",
+          "answer": "Oktave.",
+          "jokerOptions": ["Oktave", "Quinte", "Sexte"]
+        },
+        {
+          "id": "music-hard-400",
+          "points": 400,
+          "prompt": "Unter welchem Geburtsnamen kam Queen-Sänger Freddie Mercury zur Welt?",
+          "answer": "Farrokh Bulsara.",
+          "jokerOptions": ["Farrokh Bulsara", "Reginald Dwight", "David Jones"]
+        },
+        {
+          "id": "music-hard-500",
+          "points": 500,
+          "prompt": "Welche Oper enthält die berühmte Arie der Königin der Nacht?",
+          "answer": "„Die Zauberflöte“ von Wolfgang Amadeus Mozart.",
+          "jokerOptions": ["Die Zauberflöte", "Don Giovanni", "Die Entführung aus dem Serail"]
+        },
+        {
+          "id": "music-hard-600",
+          "points": 600,
+          "prompt": "Welcher italienische Filmkomponist schrieb die Musik zu „Spiel mir das Lied vom Tod“?",
+          "answer": "Ennio Morricone.",
+          "jokerOptions": ["Ennio Morricone", "Nino Rota", "Nicola Piovani"]
+        }
+      ]
+    },
+    {
+      "id": "language-hard",
+      "title": "Sprache & Kurioses",
+      "questions": [
+        {
+          "id": "language-hard-100",
+          "points": 100,
+          "prompt": "Wie nennt man ein Wort wie „Lagerregal“, das vorwärts und rückwärts gleich gelesen wird?",
+          "answer": "Palindrom.",
+          "jokerOptions": ["Palindrom", "Anagramm", "Akrostichon"]
+        },
+        {
+          "id": "language-hard-200",
+          "points": 200,
+          "prompt": "Aus den Namen welcher beiden griechischen Buchstaben entstand das Wort „Alphabet“?",
+          "answer": "Alpha und Beta.",
+          "jokerOptions": ["Alpha und Beta", "Gamma und Delta", "Eta und Theta"]
+        },
+        {
+          "id": "language-hard-300",
+          "points": 300,
+          "prompt": "Wie heißt ein Satz, der jeden Buchstaben eines Alphabets mindestens einmal enthält?",
+          "answer": "Pangramm.",
+          "jokerOptions": ["Pangramm", "Lipogramm", "Tautogramm"]
+        },
+        {
+          "id": "language-hard-400",
+          "points": 400,
+          "prompt": "Wie nennt man ähnlich klingende Wörter zweier Sprachen, die unterschiedliche Bedeutungen haben, etwa „Gift“ im Deutschen und Englischen?",
+          "answer": "Falsche Freunde.",
+          "jokerOptions": ["Falsche Freunde", "Homophone", "Lehnübersetzungen"]
+        },
+        {
+          "id": "language-hard-500",
+          "points": 500,
+          "prompt": "Wie heißt ein Text, in dem ein bestimmter Buchstabe bewusst überhaupt nicht verwendet wird?",
+          "answer": "Lipogramm.",
+          "jokerOptions": ["Lipogramm", "Monogramm", "Epigramm"]
+        },
+        {
+          "id": "language-hard-600",
+          "points": 600,
+          "prompt": "Zu welcher Sprachfamilie gehören Finnisch, Estnisch und Ungarisch?",
+          "answer": "Zur uralischen Sprachfamilie.",
+          "jokerOptions": ["Uralische Sprachen", "Slawische Sprachen", "Baltische Sprachen"]
+        }
+      ]
+    }
+  ],
+  "prizes": [
+    {
+      "id": "prize-garden-rock",
+      "requiredPoints": 1500,
+      "title": "Etwas zum Bewegen",
+      "description": "Ein Rocktanzabend im Garten.",
+      "image": "images/prizes/garden-rock-speaker.png",
+      "imageAlt": "Ein farbenfroher Lautsprecher, aus dem bunte Musiknoten erklingen."
+    },
+    {
+      "id": "prize-main",
+      "requiredPoints": 3500,
+      "title": "Etwas zum Erleben",
+      "description": "Eine Runde Bowling mit ordentlich Schwung.",
+      "image": "images/prizes/bowling.png",
+      "imageAlt": "Eine violette Bowlingkugel trifft drei fröhliche Bowlingpins."
+    },
+    {
+      "id": "prize-sweet",
+      "requiredPoints": 5500,
+      "title": "Etwas zum Knobeln",
+      "description": "Ein Rätselheft für knifflige Denkpausen.",
+      "image": "images/prizes/puzzle-book.png",
+      "imageAlt": "Ein buntes Rätselheft mit Labyrinth, Denkspielen und einem Stift."
+    },
+    {
+      "id": "prize-drink",
+      "requiredPoints": 7500,
+      "title": "Etwas zum Kuscheln",
+      "description": "Ein Kissen für extra gemütliche Momente.",
+      "image": "images/prizes/colorful-cushion.png",
+      "imageAlt": "Ein weiches, schönes Kissen."
+    },
+    {
+      "id": "prize-surprise",
+      "requiredPoints": 9500,
+      "title": "Etwas zum Erfrischen",
+      "description": "Ein Spaziergang mit einem prickelnden Lieblingsgetränk zum Abschluss.",
+      "image": "images/prizes/celebration-drink.png",
+      "imageAlt": "Ein festliches, prickelndes Getränk mit Eis, Strohhalm und Zitrusfrüchten."
+    },
+    {
+      "id": "prize-crown",
+      "requiredPoints": 12500,
+      "title": "Etwas zum Genießen",
+      "description": "Ein genußvoller Abend zusammen mit den Hosts.",
+      "image": "images/prizes/gourmet-carrots-v2.png",
+      "imageAlt": "Drei freundlich lächelnde Gourmetkarotten auf einem Teller unter einer angehobenen Silberglocke."
+    }
+  ]
+}

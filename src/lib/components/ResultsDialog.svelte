@@ -5,6 +5,7 @@
   export let score: number;
   export let prizes: QuizPrize[];
   export let revealedPrizeIds: string[];
+  export let showPrizes: boolean;
   export let imageUrl: (path: string | undefined) => string | undefined;
   export let onClose: () => void;
 
@@ -38,27 +39,29 @@
   <p class="eyebrow">Alle Fragen sind gespielt</p>
   <h2 id="results-title">Großartig gemacht!</h2>
   <p class="final-score"><strong>{score.toLocaleString('de-DE')}</strong> Punkte</p>
-  {#if highest}<p class="highest-prize">Höchste Stufe: <strong>{highest.title}</strong></p>{/if}
+  {#if showPrizes}
+    {#if highest}<p class="highest-prize">Höchste Stufe: <strong>{highest.title}</strong></p>{/if}
 
-  <section class="unlocked-prizes" aria-label="Freigeschaltete Preise">
-    {#if unlocked.length}
-      {#each unlocked as prize (prize.id)}
-        <article>
-          {#if prize.image && !failedImages[prize.id]}
-            <img
-              src={imageUrl(prize.image)}
-              alt={prize.imageAlt ?? ''}
-              on:error={() => (failedImages = { ...failedImages, [prize.id]: true })}
-            />
-          {:else}
-            <span role="img" aria-label={failedImages[prize.id] ? `${prize.imageAlt ?? 'Preisbild'} – Bild nicht verfügbar` : 'Geschenk'}>🎁</span>
-          {/if}
-          <strong>{prize.title}</strong>
-        </article>
-      {/each}
-    {:else}
-      <p>Noch kein Preis freigeschaltet – aber der Applaus gehört dir!</p>
-    {/if}
-  </section>
+    <section class="unlocked-prizes" aria-label="Freigeschaltete Preise">
+      {#if unlocked.length}
+        {#each unlocked as prize (prize.id)}
+          <article>
+            {#if prize.image && !failedImages[prize.id]}
+              <img
+                src={imageUrl(prize.image)}
+                alt={prize.imageAlt ?? ''}
+                on:error={() => (failedImages = { ...failedImages, [prize.id]: true })}
+              />
+            {:else}
+              <span role="img" aria-label={failedImages[prize.id] ? `${prize.imageAlt ?? 'Preisbild'} – Bild nicht verfügbar` : 'Geschenk'}>🎁</span>
+            {/if}
+            <strong>{prize.title}</strong>
+          </article>
+        {/each}
+      {:else}
+        <p>Noch kein Preis freigeschaltet – aber der Applaus gehört dir!</p>
+      {/if}
+    </section>
+  {/if}
   <button type="button" class="primary-button" on:click={close}>Zurück zum Quizbrett</button>
 </dialog>
